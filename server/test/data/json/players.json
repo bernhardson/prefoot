@@ -1,0 +1,185 @@
+{
+  "get": "players",
+  "parameters": {
+    "league": "78",
+    "season": "2023"
+  },
+  "errors": [],
+  "results": 20,
+  "paging": {
+    "current": 1,
+    "total": 35
+  },
+  "response": [
+    {
+      "player": {
+        "id": 1159,
+        "name": "M. Sabitzer",
+        "firstname": "Marcel",
+        "lastname": "Sabitzer",
+        "age": 30,
+        "birth": {
+          "date": "1994-03-17",
+          "place": "Graz",
+          "country": "Austria"
+        },
+        "nationality": "Austria",
+        "height": "178 cm",
+        "weight": "76 kg",
+        "injured": false,
+        "photo": "https://media.api-sports.io/football/players/1159.png"
+      },
+      "statistics": [
+        {
+          "team": {
+            "id": 157,
+            "name": "Bayern Munich",
+            "logo": "https://media.api-sports.io/football/teams/157.png"
+          },
+          "league": {
+            "id": 78,
+            "name": "Bundesliga",
+            "country": "Germany",
+            "logo": "https://media.api-sports.io/football/leagues/78.png",
+            "flag": "https://media.api-sports.io/flags/de.svg",
+            "season": 2023
+          },
+          "games": {
+            "appearences": null,
+            "lineups": null,
+            "minutes": null,
+            "number": null,
+            "position": "Midfielder",
+            "rating": null,
+            "captain": false
+          },
+          "substitutes": {
+            "in": null,
+            "out": null,
+            "bench": null
+          },
+          "shots": {
+            "total": null,
+            "on": null
+          },
+          "goals": {
+            "total": null,
+            "conceded": null,
+            "assists": null,
+            "saves": null
+          },
+          "passes": {
+            "total": null,
+            "key": null,
+            "accuracy": null
+          },
+          "tackles": {
+            "total": null,
+            "blocks": null,
+            "interceptions": null
+          },
+          "duels": {
+            "total": null,
+            "won": null
+          },
+          "dribbles": {
+            "attempts": null,
+            "success": null,
+            "past": null
+          },
+          "fouls": {
+            "drawn": null,
+            "committed": null
+          },
+          "cards": {
+            "yellow": null,
+            "yellowred": null,
+            "red": null
+          },
+          "penalty": {
+            "won": null,
+            "commited": null,
+            "scored": null,
+            "missed": null,
+            "saved": null
+          }
+        },
+        {
+          "team": {
+            "id": 165,
+            "name": "Borussia Dortmund",
+            "logo": "https://media.api-sports.io/football/teams/165.png"
+          },
+          "league": {
+            "id": 78,
+            "name": "Bundesliga",
+            "country": "Germany",
+            "logo": "https://media.api-sports.io/football/leagues/78.png",
+            "flag": "https://media.api-sports.io/flags/de.svg",
+            "season": 2023
+          },
+          "games": {
+            "appearences": 15,
+            "lineups": 14,
+            "minutes": 1201,
+            "number": null,
+            "position": "Midfielder",
+            "rating": "7.093333",
+            "captain": false
+          },
+          "substitutes": {
+            "in": 1,
+            "out": 3,
+            "bench": 2
+          },
+          "shots": {
+            "total": 16,
+            "on": 9
+          },
+          "goals": {
+            "total": 2,
+            "conceded": 0,
+            "assists": 2,
+            "saves": null
+          },
+          "passes": {
+            "total": 583,
+            "key": 17,
+            "accuracy": 30
+          },
+          "tackles": {
+            "total": 27,
+            "blocks": 9,
+            "interceptions": 7
+          },
+          "duels": {
+            "total": 112,
+            "won": 56
+          },
+          "dribbles": {
+            "attempts": 14,
+            "success": 8,
+            "past": null
+          },
+          "fouls": {
+            "drawn": 16,
+            "committed": 10
+          },
+          "cards": {
+            "yellow": 2,
+            "yellowred": 0,
+            "red": 0
+          },
+          "penalty": {
+            "won": null,
+            "commited": null,
+            "scored": 0,
+            "missed": 0,
+            "saved": null
+          }
+        }
+      ]
+    }
+
+  ]
+}
