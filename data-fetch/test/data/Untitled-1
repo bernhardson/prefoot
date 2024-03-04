@@ -1,0 +1,1238 @@
+
+
+
+2024-03-02T20:46:11+01:00 ERR ../pkg/database/player.go:45 > player id 22 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:46:41+01:00 ERR ../pkg/database/player.go:45 > player id 277 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:03+01:00 ERR ../pkg/database/player.go:45 > player id 399 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:03+01:00 ERR ../pkg/database/player.go:45 > player id 399 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+2024-03-02T20:47:03+01:00 ERR ../pkg/database/player.go:45 > player id 721 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 975 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 1097 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 1143 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 1159 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 1159 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 25010 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 25283 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 37439 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 162079 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 162102 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 202017 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 202728 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 203182 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 279868 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 280431 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 290213 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+2024-03-02T20:47:04+01:00 ERR ../pkg/database/player.go:45 > player id 357253 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:30+01:00 ERR ../pkg/database/player.go:45 > player id 25919 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:30+01:00 ERR ../pkg/database/player.go:45 > player id 269531 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:47+01:00 ERR ../pkg/database/player.go:45 > player id 25391 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:47+01:00 ERR ../pkg/database/player.go:45 > player id 28443 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:47+01:00 ERR ../pkg/database/player.go:45 > player id 177665 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:48+01:00 ERR ../pkg/database/player.go:45 > player id 14704 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+2024-03-02T20:47:48+01:00 ERR ../pkg/database/player.go:45 > player id 24910 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:48+01:00 ERR ../pkg/database/player.go:45 > player id 26342 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:48+01:00 ERR ../pkg/database/player.go:45 > player id 177661 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:48+01:00 ERR ../pkg/database/player.go:45 > player id 162771 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:48+01:00 ERR ../pkg/database/player.go:45 > player id 714 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:48+01:00 ERR ../pkg/database/player.go:45 > player id 177745 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:48+01:00 ERR ../pkg/database/player.go:45 > player id 26237 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:49+01:00 ERR ../pkg/database/player.go:45 > player id 26242 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:50+01:00 ERR ../pkg/database/player.go:45 > player id 7691 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:47:51+01:00 ERR ../pkg/database/player.go:45 > player id 25635 error="ERROR: duplicate key value violates unique constraint \"players_pkey\" (SQLSTATE 23505)"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-03-02T20:48:39+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048881 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:48:39+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048881#team_162 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:48:39+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048881 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:48:39+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048881#team_162 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:48:39+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048881#team_157 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:48:39+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048881 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:48:39+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048881#team_157 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:11+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_1124#fixture_1048881 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:51+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_24843#fixture_1048881 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:51+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_129142#fixture_1048881 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:51+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_280335#fixture_1048881 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:54+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048882 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:49:54+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048882#team_165 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:49:54+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048882 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:54+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048882#team_165 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:54+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048882#team_192 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:49:54+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048882 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:54+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048882#team_192 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:54+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_19522#fixture_1048882 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:54+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_2383#fixture_1048882 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:55+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048883 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:49:55+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048883#team_182 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:49:55+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048883 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:55+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048883#team_182 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:55+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048883#team_164 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:49:55+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048883 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:55+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048883#team_164 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:55+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_327831#fixture_1048883 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:55+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_25455#fixture_1048883 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048884 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048884#team_168 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048884 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048884#team_168 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048884#team_173 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048884 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048884#team_173 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_963#fixture_1048884 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_48119#fixture_1048884 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_972#fixture_1048884 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_563#fixture_1048884 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_352375#fixture_1048884 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_138804#fixture_1048884 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_1152#fixture_1048884 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_153066#fixture_1048884 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:56+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_162170#fixture_1048884 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:58+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048885 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:49:58+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048885#team_169 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:49:58+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048885 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:58+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048885#team_169 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:58+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048885#team_181 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:49:58+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048885 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:58+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048885#team_181 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:58+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_15884#fixture_1048885 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:49:58+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_123476#fixture_1048885 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:00+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048886 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:00+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048886#team_161 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:00+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048886 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:00+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048886#team_161 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:00+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048886#team_180 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:00+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048886 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:00+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048886#team_180 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:00+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_21570#fixture_1048886 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:01+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048887 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:01+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048887#team_167 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:01+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048887 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:01+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048887#team_167 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:01+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048887#team_160 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:01+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048887 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:01+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048887#team_160 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:01+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_719#fixture_1048887 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:01+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_26236#fixture_1048887 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:01+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_202843#fixture_1048887 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:01+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_128849#fixture_1048887 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:12+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048888 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:12+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048888#team_170 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:12+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048888 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:12+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048888#team_170 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:12+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048888#team_163 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:12+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048888 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:12+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048888#team_163 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:12+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_129670#fixture_1048888 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:12+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_318531#fixture_1048888 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:13+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048889 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:13+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048889#team_172 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:13+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048889 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:13+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048889#team_172 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:13+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048889#team_176 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:13+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048889 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:13+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048889#team_176 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:13+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_26303#fixture_1048889 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:13+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_286373#fixture_1048889 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:13+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_25084#fixture_1048889 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:13+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_1449#fixture_1048889 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:14+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048890 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:14+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048890#team_157 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:14+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048890 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:14+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048890#team_157 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:14+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048890#team_170 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:14+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048890 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:14+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048890#team_170 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:14+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_280335#fixture_1048890 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:14+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_8683#fixture_1048890 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048891 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048891#team_173 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048891 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048891#team_173 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048891#team_172 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048891 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048891#team_172 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_1152#fixture_1048891 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_153066#fixture_1048891 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_26303#fixture_1048891 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048892 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048892#team_160 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048892 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048892#team_160 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048892#team_162 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048892 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048892#team_162 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_202843#fixture_1048892 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_129142#fixture_1048892 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:15+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_24843#fixture_1048892 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048893 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048893#team_164 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048893 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048893#team_164 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048893#team_169 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048893 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048893#team_169 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_265884#fixture_1048893 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_15884#fixture_1048893 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048894 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048894#team_163 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048894 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048894#team_163 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048894#team_168 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048894 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048894#team_168 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_318531#fixture_1048894 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_963#fixture_1048894 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_48119#fixture_1048894 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_972#fixture_1048894 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_563#fixture_1048894 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_352375#fixture_1048894 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_125171#fixture_1048894 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_138804#fixture_1048894 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048895 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048895#team_192 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048895 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048895#team_192 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048895#team_161 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048895 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048895#team_161 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:16+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_21570#fixture_1048895 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:84 > insert fixture: fixture_1048896 error="ERROR: duplicate key value violates unique constraint \"fixtures_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048896#team_176 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048896 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048896#team_176 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:90 > insert team statistic: fixture_1048896#team_165 error="ERROR: duplicate key value violates unique constraint \"team_statistics_pkey\" (SQLSTATE 23505)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048896 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048896#team_165 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_108519#fixture_1048896 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048897 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048897#team_180 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048897 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048897#team_167 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_719#fixture_1048897 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048898 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048898#team_181 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048898 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:17+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048898#team_182 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_123476#fixture_1048898 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_327831#fixture_1048898 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048899 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048899#team_165 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048899 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048899#team_180 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048900 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048900#team_182 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048900 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048900#team_173 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_327831#fixture_1048900 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_1152#fixture_1048900 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:18+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_153066#fixture_1048900 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048901 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048901#team_168 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048901 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048901#team_181 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_963#fixture_1048901 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_48119#fixture_1048901 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_972#fixture_1048901 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_563#fixture_1048901 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_125171#fixture_1048901 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_138804#fixture_1048901 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_352375#fixture_1048901 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_123476#fixture_1048901 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048902 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048902#team_169 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048902 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048902#team_192 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_265884#fixture_1048902 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_276670#fixture_1048902 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048903 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048903#team_163 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048903 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048903#team_157 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_318531#fixture_1048903 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:19+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_280335#fixture_1048903 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:20+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048904 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:20+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048904#team_167 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:20+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048904 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:20+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048904#team_161 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:20+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_719#fixture_1048904 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:20+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_334353#fixture_1048904 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:20+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_261210#fixture_1048904 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:20+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048905 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:20+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048905#team_162 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:20+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048905 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:20+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048905#team_164 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:20+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_24843#fixture_1048905 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:21+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048906 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:21+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048906#team_170 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:21+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048906 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:21+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048906#team_176 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:21+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_8683#fixture_1048906 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:21+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_129670#fixture_1048906 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:21+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048907 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:21+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048907#team_172 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:21+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048907 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:21+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048907#team_160 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:21+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_202843#fixture_1048907 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048908 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048908#team_157 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048908 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048908#team_168 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_280335#fixture_1048908 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_963#fixture_1048908 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_48119#fixture_1048908 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_972#fixture_1048908 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_563#fixture_1048908 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_127817#fixture_1048908 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_25168#fixture_1048908 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_138804#fixture_1048908 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048909 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048909#team_173 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048909 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048909#team_170 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_1152#fixture_1048909 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_153066#fixture_1048909 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:22+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_8683#fixture_1048909 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:23+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048910 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:23+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048910#team_160 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:23+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048910 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:23+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048910#team_165 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:23+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_125173#fixture_1048910 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:23+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_202843#fixture_1048910 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:23+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_191160#fixture_1048910 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:23+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048911 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:23+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048911#team_161 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:23+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048911 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:23+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048911#team_182 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:24+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048912 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:24+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048912#team_164 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:24+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048912 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:24+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048912#team_172 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:24+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_25455#fixture_1048912 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:24+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048913 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:24+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048913#team_192 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:24+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048913 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:24+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048913#team_167 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:24+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_2383#fixture_1048913 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:24+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_719#fixture_1048913 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:41+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048916 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:41+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048916#team_181 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:41+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048916 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:41+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048916#team_163 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:41+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_123476#fixture_1048916 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:41+01:00 ERR ../pkg/database/fixtures.go:111 > player statistics#player_318531#fixture_1048916 error="ERROR: insert or update on table \"player_statistics\" violates foreign key constraint \"player_statistics_player_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:42+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048919 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:42+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048919#team_182 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:42+01:00 ERR ../pkg/database/fixtures.go:74 > fixture_1048919 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"
+2024-03-02T20:50:42+01:00 ERR ../pkg/database/fixtures.go:94 > insert formation fixture_1048919#team_167 error="ERROR: insert or update on table \"formations\" violates foreign key constraint \"formations_coach_fkey\" (SQLSTATE 23503)"

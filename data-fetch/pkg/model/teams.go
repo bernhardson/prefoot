@@ -24,3 +24,17 @@ type Venue struct {
 	Surface  string `json:"surface"`
 	Image    string `json:"image"`
 }
+
+type TeamResponse struct {
+	Get        string        `json:"get"`
+	Parameters Parameters    `json:"parameters"`
+	Errors     []interface{} `json:"errors"`
+	Results    int           `json:"results"`
+	Paging     Paging        `json:"paging"`
+	TeamVenues []TeamVenue   `json:"response"`
+}
+
+type Parameters struct {
+	League string `json:"league"`
+	Season string `json:"season"`
+}

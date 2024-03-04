@@ -4,18 +4,18 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/bernhardson/prefoot/server/pkg/database"
-	"github.com/bernhardson/prefoot/server/pkg/services"
+	"github.com/bernhardson/prefoot/data-fetch/pkg/model"
+	"github.com/bernhardson/prefoot/server/pkg/service"
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/rs/zerolog/log"
 )
 
-var Pool *pgxpool.Pool
+var pool *pgxpool.Pool
 
 type Data struct {
-	PS []*database.Player `json:"player_statistics"`
-	PD *[]pkg.Player      `json:"player_details"`
+	PS []*model.Player `json:"player_statistics"`
+	PD *[]model.Player `json:"player_details"`
 }
 
 type Response struct {
@@ -23,6 +23,8 @@ type Response struct {
 	Success bool   `json:"success"`
 	Message string `json:"message,omitempty"`
 }
+
+var Pool *pgxpool.Pool
 
 func StartServer() {
 	router := gin.Default()
@@ -36,18 +38,12 @@ func getPlayersByTeamId(c *gin.Context) {
 	if err != nil {
 		log.Err(err).Msg("")
 	}
-	p, pl, err := services.GetPlayersByTeamId(id, Pool)
+	resp, err := service.GetPlayersByTeamId(id, Pool)
 	if err != nil {
 		c.AbortWithError(http.StatusBadRequest, err)
 	}
-	response := Response{
-		Data: Data{
-			PS: p,
-			PD: pl},
-		Success: true,
-		Message: "Data fetched successfully",
-	}
-	c.IndentedJSON(http.StatusOK, response)
+	c.IndentedJSON(http.StatusOK, resp)
+
 }
 
 func getLeagueStanding(c *gin.Context) {
@@ -59,9 +55,9 @@ func getLeagueStanding(c *gin.Context) {
 	if err != nil {
 		c.AbortWithError(http.StatusBadRequest, err)
 	}
-	ss, err := services.GetStandings(l, s)
+	ss, err := service.GetStandings(l, s)
 	if err != nil {
 		c.AbortWithError(http.StatusBadRequest, err)
 	}
 	c.IndentedJSON(http.StatusOK, ss)
-}
+} 

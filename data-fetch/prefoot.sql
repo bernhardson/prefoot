@@ -84,12 +84,16 @@ CREATE TABLE "players" (
   "team" integer,
   "season" integer,
   "firstname" varchar,
-  "lastname" varchar
+  "lastname" varchar,
+  "birthplace" varchar,
+  "birthcountry" varchar,
+  "birthdate" varchar
 );
 
 CREATE TABLE "player_statistics" (
   "player" integer,
   "fixture" integer,
+  "team" integer,
   "season" integer,
   "minutes" integer,
   "position" varchar,
@@ -186,16 +190,15 @@ CREATE TABLE "coaches" (
 );
 
 CREATE TABLE "coach_careers" (
-  "id" integer PRIMARY KEY,
+  "coach" integer ,
   "team" integer,
   "start" timestamp,
-  "end" timestamp NULL
+  "end" timestamp NULL,
+  PRIMARY KEY ("coach", "team", "start")
 );
 
 ALTER TABLE "fixtures" ADD FOREIGN KEY ("home_team") REFERENCES "teams" ("id") DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE "fixtures" ADD FOREIGN KEY ("away_team") REFERENCES "teams" ("id") DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE "events" ADD FOREIGN KEY ("fixture") REFERENCES "fixtures" ("id") DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE "formations" ADD FOREIGN KEY ("fixture") REFERENCES "fixtures" ("id") DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE "formations" ADD FOREIGN KEY ("coach") REFERENCES "coaches" ("id") DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE "player_statistics" ADD FOREIGN KEY ("fixture") REFERENCES "fixtures" ("id") DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE "player_statistics" ADD FOREIGN KEY ("player") REFERENCES "players" ("id") DEFERRABLE INITIALLY DEFERRED;
