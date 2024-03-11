@@ -2,35 +2,15 @@ package database
 
 import (
 	"context"
-	"fmt"
-	"strconv"
-	"strings"
 
-	"github.com/bernhardson/prefoot/data-fetch/pkg/model"
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/rs/zerolog"
 )
 
 const (
-	insertFixture = `INSERT INTO fixtures (id, league, referee, timezone, timestamp, venue, season, home_team, away_team,
+	insertFixture = `INSERT INTO fixtures (id, league, round, referee, timezone, timestamp, venue, season, home_team, away_team,
 						home_goals, away_goals, home_goals_half, away_goals_half)
-						VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`
-)
-
-func InsertFixture(pool *pgxpool.Pool, f *model.Fixture, fd *model.FixtureDetail, season int) error {
-
-	_, err := pool.Exec(
-		context.Background(),
-		insertFixture,
-		f.Fixture.ID, f.League.ID, f.Fixture.Referee, f.Fixture.Timezone,
-		f.Fixture.Timestamp, f.Fixture.Venue.ID, season, f.Teams.Home.ID,
-		f.Teams.Away.ID, f.Goals.Home, f.Goals.Away, fd.Score.Halftime.Home,
-		fd.Score.Halftime.Away)
-
-	return err
-}
-
-const (
+						VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);`
 	insertTeamStatistics = "INSERT INTO team_statistics " +
 		"(team, fixture, shots_total, shots_on, shots_off, shots_blocked, " +
 		"shots_box, shots_outside, offsides, fouls, corners, possession, yellow, red, " +
@@ -39,139 +19,126 @@ const (
 
 	insertFormation = `INSERT INTO formations (fixture, team, formation, player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, sub1, sub2, sub3, sub4, sub5, coach)
 						VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)`
+	selectFixturesByRound = "SELECT * FROM players WHERE round = $1"
 )
 
-func InsertTeamsStatistics(pool *pgxpool.Pool, l *model.Lineup, f *model.FixtureMeta, ts *model.TeamStatistics) error {
-	_, err := pool.Exec(
+type FixtureModel struct {
+	Pool *pgxpool.Pool
+}
+
+type FixtureRow struct {
+	ID            int    `json:"id"`
+	League        int    `json:"league"`
+	Round         int    `json:"round"`
+	Referee       string `json:"referee"`
+	Timezone      string `json:"timezone"`
+	Timestamp     int    `json:"timestamp"`
+	Venue         int    `json:"venue"`
+	Season        int    `json:"season"`
+	HomeTeam      int    `json:"home_team"`
+	AwayTeam      int    `json:"away_team"`
+	HomeGoals     int    `json:"home_goals"`
+	AwayGoals     int    `json:"away_goals"`
+	HomeGoalsHalf int    `json:"home_goals_half"`
+	AwayGoalsHalf int    `json:"away_goals_half"`
+}
+
+func (fm *FixtureModel) Insert(f *FixtureRow) (int64, error) {
+
+	row, err := fm.Pool.Exec(
+		context.Background(),
+		insertFixture,
+		f.ID, f.League, f.Round, f.Referee, f.Timezone,
+		f.Timestamp, f.Venue, f.Season, f.HomeTeam,
+		f.AwayTeam, f.HomeGoals, f.AwayGoals, f.HomeGoalsHalf,
+		f.AwayGoalsHalf)
+
+	return row.RowsAffected(), err
+}
+
+type TeamStatisticsRow struct {
+	Team           int     `json:"team"`
+	Fixture        int     `json:"fixture"`
+	ShotsTotal     int     `json:"shots_total"`
+	ShotsOn        int     `json:"shots_on"`
+	ShotsOff       int     `json:"shots_off"`
+	ShotsBlocked   int     `json:"shots_blocked"`
+	ShotsBox       int     `json:"shots_box"`
+	ShotsOutside   int     `json:"shots_outside"`
+	Offsides       int     `json:"offsides"`
+	Fouls          int     `json:"fouls"`
+	Corners        int     `json:"corners"`
+	Possession     int     `json:"possession"`
+	Yellow         int     `json:"yellow"`
+	Red            int     `json:"red"`
+	GKSaves        int     `json:"gk_saves"`
+	PassesTotal    int     `json:"passes_total"`
+	PassesAccurate int     `json:"passes_accurate"`
+	PassesPercent  int     `json:"passes_percent"`
+	ExpectedGoals  float64 `json:"expected_goals"`
+}
+
+func (fm *FixtureModel) InsertTeamsStats(t *TeamStatisticsRow) (int64, error) {
+	row, err := fm.Pool.Exec(
 		context.Background(),
 		insertTeamStatistics,
-		l.Team.ID, f.ID, ts.ShotsTotal, ts.ShotsOn, ts.ShotsOff, ts.ShotsBlocked,
-		ts.ShotsBox, ts.ShotsOutside, ts.Offsides, ts.Fouls, ts.Corners, ts.Possession, ts.Yellow, ts.Red,
-		ts.GkSaves, ts.PassesTotal, ts.PassesAccurate, ts.PassesPercent, ts.ExpectedGoals,
+		t.Team, t.Fixture, t.ShotsTotal, t.ShotsOn, t.ShotsOff, t.ShotsBlocked,
+		t.ShotsBox, t.ShotsOutside, t.Offsides, t.Fouls, t.Corners, t.Possession, t.Yellow, t.Red,
+		t.GKSaves, t.PassesTotal, t.PassesAccurate, t.PassesPercent, t.ExpectedGoals,
 	)
-	return err
+	return row.RowsAffected(), err
 }
 
-func InsertFormation(pool *pgxpool.Pool, l *model.Lineup, f *model.FixtureMeta, ts *model.TeamStatistics, logger zerolog.Logger) error {
+type FormationRow struct {
+	Fixture   int    `json:"fixture"`
+	Team      int    `json:"team"`
+	Formation string `json:"formation"`
+	Player1   int    `json:"player1"`
+	Player2   int    `json:"player2"`
+	Player3   int    `json:"player3"`
+	Player4   int    `json:"player4"`
+	Player5   int    `json:"player5"`
+	Player6   int    `json:"player6"`
+	Player7   int    `json:"player7"`
+	Player8   int    `json:"player8"`
+	Player9   int    `json:"player9"`
+	Player10  int    `json:"player10"`
+	Player11  int    `json:"player11"`
+	Sub1      int    `json:"sub1"`
+	Sub2      int    `json:"sub2"`
+	Sub3      int    `json:"sub3"`
+	Sub4      int    `json:"sub4"`
+	Sub5      int    `json:"sub5"`
+	Coach     int    `json:"coach"`
+}
+
+func (fm *FixtureModel) InsertFormation(f *FormationRow) (int64, error) {
 	// insert formation
-	_, err := pool.Exec(
+	row, err := fm.Pool.Exec(
 		context.Background(),
 		insertFormation,
-		f.ID, l.Team.ID, l.Formation,
-		l.StartXI[0].Player.ID, l.StartXI[1].Player.ID,
-		l.StartXI[2].Player.ID, l.StartXI[3].Player.ID,
-		l.StartXI[4].Player.ID, l.StartXI[5].Player.ID,
-		l.StartXI[6].Player.ID, l.StartXI[7].Player.ID,
-		l.StartXI[8].Player.ID, l.StartXI[9].Player.ID,
-		l.StartXI[10].Player.ID,
-		l.Substitutes[0].Player.ID, l.Substitutes[1].Player.ID,
-		l.Substitutes[2].Player.ID, l.Substitutes[3].Player.ID,
-		l.Substitutes[4].Player.ID,
-		l.Coach.ID,
+		f.Fixture, f.Team, f.Formation,
+		f.Player1, f.Player2, f.Player3, f.Player4, f.Player5,
+		f.Player6, f.Player7, f.Player8, f.Player9, f.Player10,
+		f.Player11, f.Sub1, f.Sub2, f.Sub3, f.Sub4, f.Sub5,
+		f.Coach,
 	)
 
+	return row.RowsAffected(), err
+}
+
+func (pm *FixtureModel) SelectFixturesByRound(round int) ([]*FixtureRow, error) {
+
+	rows, err := pm.Pool.Query(
+		context.Background(), selectFixturesByRound, round)
 	if err != nil {
-		logger.Err(err).Msg(fmt.Sprintf("fixture_%d", f.ID))
+		return nil, err
 	}
+	defer rows.Close()
 
-	return err
-}
-func InsertFixtures(pool *pgxpool.Pool, fr *[]model.FixtureDetail, f *model.Fixture, season int, logger zerolog.Logger) {
-	for _, fd := range *fr {
-		//insert fixture
-		err := InsertFixture(pool, f, &fd, season)
-		if err != nil {
-			logger.Err(err).Msg(fmt.Sprintf("insert fixture: fixture_%d", f.Fixture.ID))
-		}
-		for i, l := range fd.Lineups {
-			ts := getTeamStatistics(i, &fd, logger)
-			err = InsertTeamsStatistics(pool, &l, &f.Fixture, ts)
-			if err != nil {
-				logger.Err(err).Msg(fmt.Sprintf("insert team statistic: fixture_%d#team_%d", f.Fixture.ID, l.Team.ID))
-			}
-			err = InsertFormation(pool, &l, &f.Fixture, ts, logger)
-			if err != nil {
-				logger.Err(err).Msg(fmt.Sprintf("insert formation fixture_%d#team_%d", f.Fixture.ID, l.Team.ID))
-			}
-
-		}
-		for _, teamStats := range fd.Players {
-			// insert player statistics
-			t := teamStats.Team.ID
-			for _, player := range teamStats.Players {
-				ps := player.Statistics[0]
-				if ps.Games.Rating == "" {
-					ps.Games.Rating = "0"
-				}
-				if ps.Passes.Accuracy == "" {
-					ps.Passes.Accuracy = "0"
-				}
-				err = InsertPlayerStatistic(pool, &player, &ps, &f.Fixture, t, season, logger)
-				if err != nil {
-					logger.Err(err).Msg(fmt.Sprintf(
-						"player statistics#player_%d#fixture_%d",
-						player.Player.ID,
-						f.Fixture.ID))
-				}
-			}
-
-		}
+	players, err := pgx.CollectRows(rows, pgx.RowToAddrOfStructByName[FixtureRow])
+	if err != nil {
+		return nil, err
 	}
-}
-
-// convert team statistics since they come as mixed type json
-func getTeamStatistics(home int, fd *model.FixtureDetail, logger zerolog.Logger) *model.TeamStatistics {
-	var sd model.TeamStatistics
-	for _, s := range fd.Statistics[home].Statistics {
-		val := 0
-		f, ok := s.Value.(float64)
-		if ok && s.Value != nil {
-			val = int(f)
-		}
-		switch t := s.Type; t {
-		case "Shots on Goal":
-			sd.ShotsOn = val
-		case "Shots off Goal":
-			sd.ShotsOff = val
-		case "Total Shots":
-			sd.ShotsTotal = val
-		case "Blocked Shots":
-			sd.ShotsBlocked = val
-		case "Shots insidebox":
-			sd.ShotsBox = val
-		case "Shots outsidebox":
-			sd.ShotsOutside = val
-		case "Fouls":
-			sd.Fouls = val
-		case "Corner Kicks":
-			sd.Corners = val
-		case "Offsides":
-			sd.Offsides = val
-		case "Ball Possession":
-			p := strings.Replace(s.Value.(string), "%", "", -1)
-			sd.Possession, _ = strconv.Atoi(p)
-		case "Yellow Cards":
-			sd.Yellow = val
-		case "Red Cards":
-			sd.Red = val
-		case "Goalkeeper Saves":
-			sd.GkSaves = val
-		case "Total passes":
-			sd.PassesTotal = val
-		case "Passes accurate":
-			sd.PassesAccurate = val
-		case "Passes %":
-			p := strings.Replace(s.Value.(string), "%", "", -1)
-			sd.PassesPercent, _ = strconv.Atoi(p)
-		case "expected_goals":
-			fl, err := strconv.ParseFloat(s.Value.(string), 32)
-			if err != nil {
-				logger.Err(err).Msg("")
-				sd.ExpectedGoals = 0
-			} else {
-				sd.ExpectedGoals = fl
-			}
-		}
-	}
-	return &sd
+	return players, nil
 }

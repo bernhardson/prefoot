@@ -2,12 +2,9 @@ package database
 
 import (
 	"context"
-	"fmt"
 	"time"
 
-	"github.com/bernhardson/prefoot/data-fetch/pkg/model"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/rs/zerolog"
 )
 
 const (
@@ -15,49 +12,39 @@ const (
 	insertCoachCareer = `INSERT INTO coach_careers (coach, team, start, "end") VALUES ($1, $2, $3, $4)`
 )
 
-func InsertCoaches(pool *pgxpool.Pool, cs *[]model.Coach, logger zerolog.Logger) (*[]int, *[]int) {
+type CoachModel struct {
+	Pool *pgxpool.Pool
+}
 
-	insertSuccess := []int{}
-	insertFail := []int{}
+// Coach represents the coaches table
+type CoachRow struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
 
-	for _, c := range *cs {
-		_, err := pool.Exec(
-			context.Background(),
-			insertCoach,
-			c.ID, c.Name,
-		)
-		if err != nil {
-			logger.Err(err).Msg(fmt.Sprintf("%d", c.ID))
-		}
-		for _, cc := range c.Career {
-			//insert coach career
-			start, err := time.Parse("2006-01-02", cc.Start)
-			if err != nil {
-				logger.Err(err).Msg(fmt.Sprintf("coach_%d", c.ID))
-			}
-			var end time.Time
-			if cc.End != "" {
-				end, err = time.Parse("2006-01-02", cc.End)
-				if err != nil {
-					logger.Err(err).Msg(fmt.Sprintf("coach_%d", c.ID))
-				}
-			} else {
-				end = time.Time{}
-			}
+func (cm *CoachModel) Insert(c *CoachRow) (int64, error) {
+	row, err := cm.Pool.Exec(
+		context.Background(),
+		insertCoach,
+		c.ID, c.Name,
+	)
+	return row.RowsAffected(), err
+}
 
-			_, err = pool.Exec(
-				context.Background(),
-				insertCoachCareer,
-				c.ID, cc.Team.ID, start, end,
-			)
-			if err != nil {
-				logger.Err(err).Msg(fmt.Sprintf("coach_%d#team%d", c.ID, cc.Team.ID))
-				insertFail = append(insertFail, c.ID)
-			} else {
-				logger.Debug().Msg(fmt.Sprintf("inserted Coach %s with id %d", c.Name, c.ID))
-				insertSuccess = append(insertSuccess, c.ID)
-			}
-		}
-	}
-	return &insertSuccess, &insertFail
+// CoachCareer represents the coach_careers table
+type CoachCareerRow struct {
+	CoachID int        `json:"coach_id"`
+	TeamID  int        `json:"team_id"`
+	Start   *time.Time `json:"start"`
+	End     *time.Time `json:"end"`
+}
+
+func (cm *CoachModel) InsertCareer(c *CoachCareerRow) (int64, error) {
+	row, err := cm.Pool.Exec(
+		context.Background(),
+		insertCoachCareer,
+		c.CoachID, c.TeamID, c.Start, c.End,
+	)
+
+	return row.RowsAffected(), err
 }

@@ -2,15 +2,20 @@ package main
 
 import (
 	"context"
-	"fmt"
+	"net/http"
 	"os"
 	"time"
 
-	"github.com/bernhardson/prefoot/data-fetch/pkg/service"
+	"github.com/bernhardson/prefoot/data-fetch/pkg/database"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
+
+type application struct {
+	logger *zerolog.Logger
+	repo   *database.Repository
+}
 
 func main() {
 	connConfig, err := pgxpool.ParseConfig("postgres://peterson:123@localhost/prefoot")
@@ -23,29 +28,54 @@ func main() {
 		log.Err(err).Msg("")
 	}
 
-	logger := zerolog.New(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.RFC3339}).
-		Level(zerolog.ErrorLevel).
+	defer pool.Close()
+
+	logger := zerolog.New(zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}).
+		Level(zerolog.DebugLevel).
 		With().
 		Timestamp().
 		Caller().
 		Logger()
 
-	season := 2023
-	league := 78
+	repo := database.Repository{
+		Teams:   &database.TeamModel{Pool: pool},
+		Venues:  &database.VenueModel{Pool: pool},
+		Players: &database.PlayerModel{Pool: pool},
+		Fixture: &database.FixtureModel{Pool: pool},
+		League:  &database.LeagueModel{Pool: pool},
+		Coach:   &database.CoachModel{Pool: pool},
+		Logger:  logger,
+	}
 
-	ils, ifs, err := service.FetchAndInsertLeagues(pool, logger)
-	logger.Err(err).Msg(fmt.Sprintf("insert leagues: success=%v # failed=%v", *ils, *ifs))
+	app := &application{
+		logger: &logger,
+		repo:   &repo,
+	}
 
-	ts, err := service.FetchAndInsertTeams(pool, league, season, logger)
-	logger.Err(err).Msg(fmt.Sprintf("insert teams: league:%d#season=%d", league, season))
+	addr := "localhost:8080"
+	srv := &http.Server{
+		Addr:    addr,
+		Handler: app.routes(),
+	}
+	srv.ListenAndServe()
 
-	err = service.FetchAndInsertPlayers(pool, league, season, logger)
-	logger.Err(err).Msg(fmt.Sprintf("insert players: league:%d#season=%d", league, season))
+	/*
+		 	season := 2023
+			league := 78
+			fs, err := service.FetchAndInsertLeagues(env)
+			logger.Err(err).Msg(fmt.Sprintf("insert leagues: failed=%v", *fs))
 
-	err = service.FetchAndInsertFixtures(pool, league, season, logger)
-	logger.Err(err).Msg(fmt.Sprintf("insert fixtures: league:%d#season=%d", league, season))
+			ts, err := service.FetchAndInsertTeams(env, league, season)
+			logger.Err(err).Msg(fmt.Sprintf("insert teams: league=%d#season=%d", league, season))
 
-	ils, ifs, err = service.FetchAndInsertCoaches(pool, ts, logger)
-	logger.Err(err).Msg(fmt.Sprintf("insert coaches: league:%d#season=%d#success=%v#failed=%v", league, season, *ils, *ifs))
+			fp, fs, err := service.FetchAndInsertPlayers(env, league, season)
+			logger.Err(err).Msg(fmt.Sprintf("insert players: league:%d#season=%d", league, season))
+			logger.Err(err).Msg(fmt.Sprintf("insert players: failedP=%v # failedS=%v", *fp, *fs))
 
+			err = service.FetchAndInsertFixtures(env, league, season)
+			logger.Err(err).Msg(fmt.Sprintf("insert fixtures: league:%d#season=%d", league, season))
+
+			fc, fcc, err := service.FetchAndInsertCoaches(env, ts)
+			logger.Err(err).Msg(fmt.Sprintf("insert coaches: league:%d#season=%d#failedC=%v#failedCC=%v", league, season, *fc, *fcc))
+	*/
 }

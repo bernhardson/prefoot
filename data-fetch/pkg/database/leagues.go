@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/bernhardson/prefoot/data-fetch/pkg/model"
+	"github.com/bernhardson/prefoot/data-fetch/pkg/fetch"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/rs/zerolog/log"
 )
@@ -13,21 +13,136 @@ const (
 	insertLeague = `INSERT INTO leagues (id, name) VALUES ($1, $2);`
 )
 
-func InsertLeagues(pool *pgxpool.Pool, ls *[]model.LeagueData) (*[]int, *[]int, error) {
-	insertedLeague := []int{}
-	failedInsert := []int{}
-	var err error
-	for _, l := range *ls {
-		_, err := pool.Exec(
-			context.Background(),
-			insertLeague,
-			l.League.ID, l.League.Name)
-		if err != nil {
-			log.Err(err).Msg(fmt.Sprintf("leagueId_%d", l.League.ID))
-			failedInsert = append(failedInsert, l.League.ID)
-		} else {
-			insertedLeague = append(insertedLeague, l.League.ID)
-		}
+type LeagueModel struct {
+	Pool *pgxpool.Pool
+}
+
+type LeagueData struct {
+	League  League   `json:"league"`
+	Country Country  `json:"country"`
+	Seasons []Season `json:"seasons"`
+}
+
+type League struct {
+	ID      int    `json:"id"`
+	Name    string `json:"name"`
+	Country string `json:"country"`
+	Logo    string `json:"logo"`
+	Flag    string `json:"flag"`
+	Season  int    `json:"season"`
+	Type    string `json:"type"`
+	Round   string `json:"round"`
+}
+
+type Country struct {
+	Name string `json:"name"`
+	Code string `json:"code"`
+	Flag string `json:"flag"`
+}
+
+type Season struct {
+	Year     int            `json:"year"`
+	Start    string         `json:"start"`
+	End      string         `json:"end"`
+	Current  bool           `json:"current"`
+	Coverage SeasonCoverage `json:"coverage"`
+}
+
+type SeasonCoverage struct {
+	Fixtures    SeasonCoverageFixtures `json:"fixtures"`
+	Standings   bool                   `json:"standings"`
+	Players     bool                   `json:"players"`
+	TopScorers  bool                   `json:"top_scorers"`
+	TopAssists  bool                   `json:"top_assists"`
+	TopCards    bool                   `json:"top_cards"`
+	Injuries    bool                   `json:"injuries"`
+	Predictions bool                   `json:"predictions"`
+	Odds        bool                   `json:"odds"`
+}
+
+type SeasonCoverageFixtures struct {
+	Events             bool `json:"events"`
+	Lineups            bool `json:"lineups"`
+	StatisticsFixtures bool `json:"statistics_fixtures"`
+	StatisticsPlayers  bool `json:"statistics_players"`
+}
+
+type StandingsResponse struct {
+	Get        string           `json:"get"`
+	Parameters StandingsParams  `json:"parameters"`
+	Errors     []interface{}    `json:"errors"`
+	Results    int              `json:"results"`
+	Paging     StandingsPaging  `json:"paging"`
+	Response   []StandingsEntry `json:"response"`
+}
+
+type StandingsParams struct {
+	League string `json:"league"`
+	Season string `json:"season"`
+}
+
+type StandingsPaging struct {
+	Current int `json:"current"`
+	Total   int `json:"total"`
+}
+
+type StandingsEntry struct {
+	League StandingsLeague `json:"league"`
+}
+
+type StandingsLeague struct {
+	ID        int               `json:"id"`
+	Name      string            `json:"name"`
+	Country   string            `json:"country"`
+	Logo      string            `json:"logo"`
+	Flag      string            `json:"flag"`
+	Season    int               `json:"season"`
+	Standings [][]StandingsTeam `json:"standings"`
+}
+
+type StandingsTeam struct {
+	Rank        int                 `json:"rank"`
+	Team        StandingsTeamDetail `json:"team"`
+	Points      int                 `json:"points"`
+	GoalsDiff   int                 `json:"goalsDiff"`
+	Group       string              `json:"group"`
+	Form        string              `json:"form"`
+	Status      string              `json:"status"`
+	Description string              `json:"description"`
+	All         StandingsStats      `json:"all"`
+	Home        StandingsStats      `json:"home"`
+	Away        StandingsStats      `json:"away"`
+	Update      string              `json:"update"`
+}
+
+type StandingsTeamDetail struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+	Logo string `json:"logo"`
+}
+
+type StandingsStats struct {
+	Played int                `json:"played"`
+	Win    int                `json:"win"`
+	Draw   int                `json:"draw"`
+	Lose   int                `json:"lose"`
+	Goals  StandingsGoalStats `json:"goals"`
+}
+
+type StandingsGoalStats struct {
+	For     int `json:"for"`
+	Against int `json:"against"`
+}
+
+func (lm *LeagueModel) Insert(l *fetch.League) (int64, error) {
+	row, err := lm.Pool.Exec(
+		context.Background(),
+		insertLeague,
+		l.ID, l.Name)
+	if err != nil {
+		log.Err(err).Msg(fmt.Sprintf("leagueId_%d", l.ID))
+	} else {
+		log.Debug().Msg(fmt.Sprintf("inserted league :%d", l.ID))
 	}
-	return &insertedLeague, &failedInsert, err
+	return row.RowsAffected(), err
 }

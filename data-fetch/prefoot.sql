@@ -19,12 +19,14 @@ CREATE TABLE "leagues" (
 
 CREATE TABLE "teams" (
   "id" integer PRIMARY KEY,
-  "name" varchar
+  "name" varchar,
+  "country" varchar
 );
 
 CREATE TABLE "fixtures" (
   "id" integer PRIMARY KEY,
   "league" integer,
+  "round" integer,
   "referee" varchar,
   "timezone" varchar,
   "timestamp" integer,

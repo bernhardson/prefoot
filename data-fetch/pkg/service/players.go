@@ -1,45 +1,117 @@
 package service
 
 import (
-	"encoding/csv"
-	"log"
-	"os"
+	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/bernhardson/prefoot/data-fetch/pkg/database"
 	"github.com/bernhardson/prefoot/data-fetch/pkg/fetch"
-	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/rs/zerolog"
 )
 
-func FetchAndInsertPlayers(pool *pgxpool.Pool, league int, season int, logger zerolog.Logger) error {
+func FetchAndInsertPlayers(repo *database.Repository, league int, season int) (*[]int, *[]int, error) {
 
-	ps, pg, err := fetch.GetPlayers(league, season, 1)
-
-	if err != nil {
-		return err
-	}
-	failedP, failedS := database.InsertPlayers(ps, pool, logger)
-
-	writeToCSV(failedP, "player.csv", logger)
-	writeToCSV(failedS, "player_statistics.csv", logger)
-
-	for i := 2; i < pg.Total; i++ {
-		ps, pg, err = fetch.GetPlayers(league, season, i)
+	pgTotal := 1
+	pgCurrent := 1
+	var failedP, failedS []int
+	for i := 1; pgCurrent <= pgTotal; i++ {
+		ps, pg, err := fetch.GetPlayers(league, season, pgCurrent)
 
 		if err != nil {
-			return err
+			return nil, nil, err
 		}
-		database.InsertPlayers(ps, pool, logger)
+
+		for _, p := range *ps {
+			// player statistics only has one entry so there will be just one insert to player table
+			for _, s := range p.Statistics {
+				row, err := repo.Players.Insert(
+					&database.PlayerRow{
+						Id:           p.PlayerDetails.ID,
+						TeamID:       s.Team.ID,
+						Season:       season,
+						FirstName:    p.PlayerDetails.FirstName,
+						LastName:     p.PlayerDetails.LastName,
+						BirthPlace:   p.PlayerDetails.Birth.Place,
+						BirthCountry: p.PlayerDetails.Birth.Country,
+						BirthDate:    p.PlayerDetails.Birth.Date,
+					},
+				)
+				//error?
+				if err != nil {
+					//sth more serious
+					if !strings.HasPrefix(err.Error(), "ERROR: duplicate key") {
+						failedP = append(failedP, p.PlayerDetails.ID)
+						repo.Logger.Err(err).Msg(err.Error())
+					} else {
+						repo.Logger.Debug().Msg(err.Error())
+					}
+					//all good
+				} else {
+					repo.Logger.Debug().Msg(fmt.Sprintf("inserted player_%d#row_%d ", p.PlayerDetails.ID, row))
+				}
+				//catch empty string ratin
+				rating, err := strconv.ParseFloat(s.Games.Rating, 32)
+				if err != nil {
+					rating = 0
+					repo.Logger.Debug().Msg(err.Error())
+				}
+				//insert season stats
+				_, err = repo.Players.InsertSeasonStats(&database.PlayerStatisticsRow{
+					PlayerID:           p.PlayerDetails.ID,
+					Season:             season,
+					TeamID:             s.Team.ID,
+					Minutes:            s.Games.Minutes,
+					Position:           s.Games.Position,
+					Rating:             rating,
+					Captain:            s.Games.Captain,
+					Appearances:        s.Games.Appearances,
+					Lineups:            s.Games.Lineups,
+					TotalShots:         s.Shots.Total,
+					ShotsOnTarget:      s.Shots.On,
+					TotalGoals:         s.Goals.Total,
+					Assists:            s.Goals.Assists,
+					TotalPasses:        s.Passes.Total,
+					KeyPasses:          s.Passes.Key,
+					PassAccuracy:       s.Passes.Accuracy,
+					TotalTackles:       s.Tackles.Total,
+					TackleBlocks:       s.Tackles.Blocks,
+					Interceptions:      s.Tackles.Interceptions,
+					TotalDuels:         s.Duels.Total,
+					DuelsWon:           s.Duels.Won,
+					DribbleAttempts:    s.Dribbles.Attempts,
+					DribbleSuccess:     s.Dribbles.Success,
+					YellowCards:        s.Cards.Yellow,
+					RedCards:           s.Cards.Red,
+					PenaltiesWon:       s.Penalty.Won,
+					PenaltiesCommitted: s.Penalty.Committed,
+					PenaltiesScored:    s.Penalty.Scored,
+					PenaltiesMissed:    s.Penalty.Missed,
+					PenaltiesSaved:     s.Penalty.Saved,
+					GoalkeeperSaves:    s.Goals.Saves,
+				})
+				//process any error but duplicate
+				if err != nil {
+					if !strings.HasPrefix(err.Error(), "ERROR: duplicate key") {
+						repo.Logger.Err(err).Msg(fmt.Sprintf("failed inserting player season statistics %d", p.PlayerDetails.ID))
+						failedS = append(failedS, p.PlayerDetails.ID)
+					}
+				} else {
+					repo.Logger.Debug().Msg(fmt.Sprintf("inserted player season statistics %d", p.PlayerDetails.ID))
+				}
+			}
+		}
+		pgTotal = pg.Total
+		pgCurrent = pg.Current + 1
+
 	}
-	return nil
+	return &failedP, &failedS, nil
 }
 
-func writeToCSV(ids []int, filename string, logger zerolog.Logger) {
+/* func writeToCSV(ids []int, filename string, env.Logger zerolog.Logger) {
 	// Create a new CSV file
 	file, err := os.Create(filename)
 	if err != nil {
-		logger.Err(err).Msg("")
+		env.Logger.Err(err).Msg("")
 	}
 	defer file.Close()
 
@@ -55,8 +127,9 @@ func writeToCSV(ids []int, filename string, logger zerolog.Logger) {
 
 	err = writer.Write(strArray)
 	if err != nil {
-		logger.Err(err).Msg("")
+		env.Logger.Err(err).Msg("")
 	}
 
 	log.Println("CSV file created successfully")
 }
+*/

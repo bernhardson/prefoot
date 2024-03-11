@@ -5,27 +5,163 @@ import (
 	"errors"
 
 	"github.com/bernhardson/prefoot/data-fetch/pkg/comm"
-	"github.com/bernhardson/prefoot/data-fetch/pkg/model"
 )
 
 const (
-	playersURL                   = "https://api-football-v1.p.rapidapi.com/v3/players?league=%d&season=%d&page=%d"
-	playersSquadURL              = "https://api-football-v1.p.rapidapi.com/v3/players/squads?team=%d"
-	insertPlayer                 = `INSERT INTO players (id, team, season, firstname, lastname) VALUES ($1, $2, $3, $4, $5)`
-	insertPlayerStatisticsSeason = `INSERT INTO player_statistics_season ("player", "season", "team","minutes", "position", "rating", "captain", "games","lineups", "shots_total", "shots_on",
-									"goals_scored", "goals_assisted", "passes_total", "passes_key", "accuracy", "tackles", "block", "interceptions", "duels_total", "duels_won", 
-									"dribbles_total", "dribbles_won", "yellow", "red", "penalty_won", "penalty_committed", "penalty_scored", "penalty_missed", "penalty_saved", "saves")
-        							VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31)`
+	playersURL      = "https://api-football-v1.p.rapidapi.com/v3/players?league=%d&season=%d&page=%d"
+	playersSquadURL = "https://api-football-v1.p.rapidapi.com/v3/players/squads?team=%d"
+	playersIdURL    = "https://api-football-v1.p.rapidapi.com/v3/players?id=%d&season=%d"
 )
 
-func GetPlayers(league int, season int, paging int) (*[]model.Player, *model.Paging, error) {
+type PlayerAPIResponse struct {
+	Get        string           `json:"get"`
+	Parameters PlayerParameters `json:"parameters"`
+	Errors     []interface{}    `json:"errors"`
+	Results    float64          `json:"results"`
+	Paging     Paging           `json:"paging"`
+	Response   []Player         `json:"response"`
+}
+
+type Player struct {
+	PlayerDetails PlayerDetails      `json:"player"`
+	Statistics    []PlayerStatistics `json:"statistics"`
+}
+
+type PlayerParameters struct {
+	League string `json:"league"`
+	Page   string `json:"page"`
+	Season string `json:"season"`
+}
+
+type Paging struct {
+	Current int `json:"current"`
+	Total   int `json:"total"`
+}
+
+type Birth struct {
+	Date    string `json:"date"`
+	Place   string `json:"place"`
+	Country string `json:"country"`
+}
+
+type PlayerDetails struct {
+	ID        int    `json:"id"`
+	Name      string `json:"name"`
+	FirstName string `json:"firstname"`
+	LastName  string `json:"lastname"`
+	Age       int    `json:"age"`
+	Birth     struct {
+		Date    string `json:"date"`
+		Place   string `json:"place"`
+		Country string `json:"country"`
+	} `json:"birth"`
+	Nationality string `json:"nationality"`
+	Height      string `json:"height"`
+	Weight      string `json:"weight"`
+	Injured     bool   `json:"injured"`
+	Photo       string `json:"photo"`
+}
+
+type BirthInfo struct {
+	Date    string `json:"date"`
+	Place   string `json:"place"`
+	Country string `json:"country"`
+}
+
+type Games struct {
+	Appearances int    `json:"appearances"`
+	Lineups     int    `json:"lineups"`
+	Minutes     int    `json:"minutes"`
+	Number      int    `json:"number"`
+	Position    string `json:"position"`
+	Rating      string `json:"rating"`
+	Captain     bool   `json:"captain"`
+}
+
+type Substitutes struct {
+	In    int `json:"in"`
+	Out   int `json:"out"`
+	Bench int `json:"bench"`
+}
+
+type Shots struct {
+	Total int `json:"total"`
+	On    int `json:"on"`
+}
+
+type Goals struct {
+	Total    int `json:"total"`
+	Conceded int `json:"conceded"`
+	Assists  int `json:"assists"`
+	Saves    int `json:"saves"`
+}
+
+type Passes struct {
+	Total    int `json:"total"`
+	Key      int `json:"key"`
+	Accuracy int `json:"accuracy"`
+}
+
+type Tackles struct {
+	Total         int `json:"total"`
+	Blocks        int `json:"blocks"`
+	Interceptions int `json:"interceptions"`
+}
+
+type Duels struct {
+	Total int `json:"total"`
+	Won   int `json:"won"`
+}
+
+type Dribbles struct {
+	Attempts int `json:"attempts"`
+	Success  int `json:"success"`
+	Past     int `json:"past"`
+}
+
+type Fouls struct {
+	Drawn     int `json:"drawn"`
+	Committed int `json:"committed"`
+}
+
+type Cards struct {
+	Yellow    int `json:"yellow"`
+	YellowRed int `json:"yellowred"`
+	Red       int `json:"red"`
+}
+
+type Penalty struct {
+	Won       int `json:"won"`
+	Committed int `json:"committed"`
+	Scored    int `json:"scored"`
+	Missed    int `json:"missed"`
+	Saved     int `json:"saved"`
+}
+
+type PlayerStatistics struct {
+	Team        Team        `json:"team"`
+	League      League      `json:"league"`
+	Games       Games       `json:"games"`
+	Substitutes Substitutes `json:"substitutes"`
+	Shots       Shots       `json:"shots"`
+	Goals       Goals       `json:"goals"`
+	Passes      Passes      `json:"passes"`
+	Tackles     Tackles     `json:"tackles"`
+	Duels       Duels       `json:"duels"`
+	Dribbles    Dribbles    `json:"dribbles"`
+	Fouls       Fouls       `json:"fouls"`
+	Cards       Cards       `json:"cards"`
+	Penalty     Penalty     `json:"penalty"`
+}
+
+func GetPlayers(league int, season int, paging int) (*[]Player, *Paging, error) {
 
 	data, err := comm.GetHttpBodyRaw(playersURL, league, season, paging)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	p := model.PlayerAPIResponse{}
+	p := PlayerAPIResponse{}
 	err = json.Unmarshal(data, &p)
 	if err != nil {
 		return nil, nil, err
@@ -33,13 +169,35 @@ func GetPlayers(league int, season int, paging int) (*[]model.Player, *model.Pag
 	return &p.Response, &p.Paging, nil
 }
 
-func GetPlayersByTeamId(teamId int) (*[]model.PlayerSquad, error) {
+type SquadResponse struct {
+	Get        string        `json:"get"`
+	Parameters interface{}   `json:"parameters"`
+	Errors     []interface{} `json:"errors"`
+	Results    int           `json:"results"`
+	Response   []Squad       `json:"response"`
+}
+
+type PlayerSquad struct {
+	ID       int    `json:"id"`
+	Name     string `json:"name"`
+	Age      int    `json:"age"`
+	Number   int    `json:"number"`
+	Position string `json:"position"`
+	Photo    string `json:"photo"`
+}
+
+type Squad struct {
+	Team    Team          `json:"team"`
+	Players []PlayerSquad `json:"players"`
+}
+
+func GetPlayersByTeamId(teamId int) (*[]PlayerSquad, error) {
 	data, err := comm.GetHttpBodyRaw(playersSquadURL, teamId)
 	if err != nil {
 		return nil, err
 	}
 
-	sqs := model.SquadResponse{}
+	sqs := SquadResponse{}
 	err = json.Unmarshal(data, &sqs)
 	if err != nil {
 		return nil, err
@@ -51,12 +209,12 @@ func GetPlayersByTeamId(teamId int) (*[]model.PlayerSquad, error) {
 	return nil, errors.New("WTF")
 }
 
-func GetPlayerIdsByTeamId(teamId int) (*[]int, *[]model.PlayerSquad, error) {
+func GetPlayerIdsByTeamId(teamId int) (*[]int, *[]PlayerSquad, error) {
 	data, err := comm.GetHttpBodyRaw(playersSquadURL, teamId)
 	if err != nil {
 		return nil, nil, err
 	}
-	sqs := model.SquadResponse{}
+	sqs := SquadResponse{}
 	err = json.Unmarshal(data, &sqs)
 	if err != nil {
 		return nil, nil, err
@@ -70,4 +228,18 @@ func GetPlayerIdsByTeamId(teamId int) (*[]int, *[]model.PlayerSquad, error) {
 		}
 	}
 	return &res, &sqs.Response[0].Players, nil
+}
+
+func GetPlayerById(id, season int) (*Player, error) {
+	data, err := comm.GetHttpBodyRaw(playersIdURL, id, season)
+	if err != nil {
+		return nil, err
+	}
+
+	p := PlayerAPIResponse{}
+	err = json.Unmarshal(data, &p)
+	if err != nil {
+		return nil, err
+	}
+	return &p.Response[0], nil
 }
