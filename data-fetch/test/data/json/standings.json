@@ -4,7 +4,8 @@
     "league": "78",
     "season": "2023"
   },
-  "errors": [],
+  
+  "errors": {"season":"The Season field must be at least 4 characters in length."},
   "results": 1,
   "paging": {
     "current": 1,

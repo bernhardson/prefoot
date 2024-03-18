@@ -41,7 +41,13 @@ func FetchAndInsertFixtures(repo *database.Repository, league, season int) error
 // lineups, player statistics and so that are not part of the fixture table
 // we insert those to database as well while the information is available
 func InsertFixtures(repo *database.Repository, fr *[]fetch.FixtureDetail, f *fetch.Fixture, season, round int) {
+
 	for _, fd := range *fr {
+
+		home, away := calculateStandings(&fd, round, season)
+		repo.Standing.Insert(home)
+		repo.Standing.Insert(away)
+
 		repo.Logger.Debug().Msg(fmt.Sprintf("insert fixture :%d", fd.Fixture.ID))
 		//insert fixture
 		_, err := repo.Fixture.Insert(&database.FixtureRow{
@@ -179,6 +185,51 @@ func InsertFixtures(repo *database.Repository, fr *[]fetch.FixtureDetail, f *fet
 	}
 }
 
+func calculateStandings(fd *fetch.FixtureDetail, round, season int) (*database.StandingRow, *database.StandingRow) {
+	hPoints := 0
+	aPoints := 0
+	if fd.Teams.Home.Winner {
+		hPoints = 3
+	} else if fd.Teams.Away.Winner {
+		aPoints = 3
+	} else {
+		hPoints = 1
+		aPoints = 1
+	}
+
+	sHome := &database.StandingRow{
+		Team:         fd.Teams.Home.ID,
+		League:       78,
+		Round:        round,
+		Season:       season,
+		Points:       0,
+		GoalsFor:     0,
+		GoalsAgainst: 0,
+		Modus:        1,
+	}
+
+	sAway := &database.StandingRow{
+		Team:         fd.Teams.Away.ID,
+		League:       78,
+		Round:        round,
+		Season:       season,
+		Points:       0,
+		GoalsFor:     0,
+		GoalsAgainst: 0,
+		Modus:        2,
+	}
+
+	sHome.Points = sHome.Points + hPoints
+	sHome.GoalsFor = sHome.GoalsFor + fd.Goals.Home
+	sHome.GoalsAgainst = sHome.GoalsAgainst + fd.Score.Fulltime.Away
+
+	sAway.Points = sAway.Points + aPoints
+	sAway.GoalsFor = sAway.GoalsFor + fd.Goals.Away
+	sAway.GoalsAgainst = sAway.GoalsAgainst + fd.Goals.Home
+
+	return sHome, sAway
+}
+
 // overrides empty string to "0"
 func defaultStringValue(ps *fetch.PlayerStatisticsDetailsFD) {
 	if ps.Games.Rating == "" {
@@ -196,7 +247,7 @@ func defaultStringValue(ps *fetch.PlayerStatisticsDetailsFD) {
 func addMissingPlayer(env *database.Repository, season, id, team int, rating string) {
 	p, err := fetch.GetPlayerById(id, season)
 	if err != nil {
-		env.Logger.Err(err).Msg("")
+		env.Logger.Err(err).Msg(fmt.Sprintf("player_id=%d", id))
 	} else {
 		_, err := env.Players.Insert(
 			&database.PlayerRow{
@@ -220,7 +271,7 @@ func addMissingPlayer(env *database.Repository, season, id, team int, rating str
 			env.Logger.Debug().Msg(err.Error())
 		}
 		//insert season stats
-		_, err = env.Players.InsertSeasonStats(&database.PlayerStatisticsRow{
+		_, err = env.Players.InsertSeasonStats(&database.PlayerSeasonStatsRow{
 			PlayerID:           p.PlayerDetails.ID,
 			Season:             season,
 			TeamID:             team,

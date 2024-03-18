@@ -2,13 +2,15 @@ package fetch
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 
 	"github.com/bernhardson/prefoot/data-fetch/pkg/comm"
 )
 
 const (
 	getLeaguesURL  = "https://api-football-v1.p.rapidapi.com/v3/leagues"
-	getStandingURL = "https://api-football-v1.p.rapidapi.com/v3/standings?season=%d&league=%d"
+	getStandingURL = "https://api-football-v1.p.rapidapi.com/v3/standings?league=%d&season=%d"
 )
 
 type LeagueResponse struct {
@@ -74,23 +76,34 @@ type SeasonCoverageFixtures struct {
 	StatisticsPlayers  bool `json:"statistics_players"`
 }
 
+func GetLeagues() (*LeagueResponse, error) {
+
+	data, err := comm.GetHttpBodyRaw(getLeaguesURL)
+	if err != nil {
+		return nil, err
+	}
+
+	l := &LeagueResponse{}
+	err = json.Unmarshal(data, l)
+	if err != nil {
+		return nil, err
+	}
+
+	return l, nil
+}
+
 type StandingsResponse struct {
 	Get        string           `json:"get"`
 	Parameters StandingsParams  `json:"parameters"`
-	Errors     []interface{}    `json:"errors"`
+	Errors     interface{}      `json:"errors"`
 	Results    int              `json:"results"`
-	Paging     StandingsPaging  `json:"paging"`
+	Paging     Paging           `json:"paging"`
 	Response   []StandingsEntry `json:"response"`
 }
 
 type StandingsParams struct {
 	League string `json:"league"`
 	Season string `json:"season"`
-}
-
-type StandingsPaging struct {
-	Current int `json:"current"`
-	Total   int `json:"total"`
 }
 
 type StandingsEntry struct {
@@ -141,34 +154,21 @@ type StandingsGoalStats struct {
 	Against int `json:"against"`
 }
 
-func GetLeagues() (*LeagueResponse, error) {
-
-	data, err := comm.GetHttpBodyRaw(getLeaguesURL)
-	if err != nil {
-		return nil, err
-	}
-
-	l := &LeagueResponse{}
-	err = json.Unmarshal(data, l)
-	if err != nil {
-		return nil, err
-	}
-
-	return l, nil
-}
-
-func GetStanding(league int, season int) (*[]StandingsEntry, error) {
+func GetStanding(league int, season int) (*StandingsEntry, error) {
 
 	data, err := comm.GetHttpBodyRaw(getStandingURL, league, season)
 	if err != nil {
 		return nil, err
 	}
-
-	resp := StandingsResponse{}
-	err = json.Unmarshal(data, &resp)
+	resp := &StandingsResponse{}
+	err = json.Unmarshal(data, resp)
 	if err != nil {
 		return nil, err
 	}
 
-	return &resp.Response, nil
+	_, ok := resp.Errors.(map[string]interface{})
+	if ok {
+		return nil, errors.New(fmt.Sprint(resp.Errors))
+	}
+	return &resp.Response[0], nil
 }

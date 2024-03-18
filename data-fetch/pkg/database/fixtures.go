@@ -19,7 +19,7 @@ const (
 
 	insertFormation = `INSERT INTO formations (fixture, team, formation, player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, sub1, sub2, sub3, sub4, sub5, coach)
 						VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)`
-	selectFixturesByRound = "SELECT * FROM players WHERE round = $1"
+	selectFixturesByRound = "SELECT * FROM fixtures WHERE round = $1"
 )
 
 type FixtureModel struct {

@@ -19,6 +19,7 @@ func FetchAndInsertTeams(repo *database.Repository, league int, season int) (*[]
 			Id:      tv.Team.ID,
 			Name:    tv.Team.Name,
 			Country: tv.Team.Country,
+			Code:    tv.Team.Code,
 		}
 		row, err := repo.Teams.Insert(t)
 		if err != nil {

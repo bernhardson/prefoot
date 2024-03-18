@@ -2,11 +2,9 @@ package database
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/bernhardson/prefoot/data-fetch/pkg/fetch"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/rs/zerolog/log"
 )
 
 const (
@@ -139,10 +137,5 @@ func (lm *LeagueModel) Insert(l *fetch.League) (int64, error) {
 		context.Background(),
 		insertLeague,
 		l.ID, l.Name)
-	if err != nil {
-		log.Err(err).Msg(fmt.Sprintf("leagueId_%d", l.ID))
-	} else {
-		log.Debug().Msg(fmt.Sprintf("inserted league :%d", l.ID))
-	}
 	return row.RowsAffected(), err
 }

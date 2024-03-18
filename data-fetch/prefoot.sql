@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS "leagues" CASCADE;
 DROP TABLE IF EXISTS "coaches" CASCADE;
 DROP TABLE IF EXISTS "players" CASCADE;
 DROP TABLE IF EXISTS "team_statistics" CASCADE;
+DROP TABLE IF EXISTS "standings" CASCADE;
 
 CREATE TABLE "leagues" (
   "id" integer PRIMARY KEY,
@@ -20,8 +21,23 @@ CREATE TABLE "leagues" (
 CREATE TABLE "teams" (
   "id" integer PRIMARY KEY,
   "name" varchar,
-  "country" varchar
+  "country" varchar,
+  "code" varchar
 );
+
+CREATE TABLE "standings"(
+  "team" integer,
+  "league" integer,
+  "round" integer,
+  "season" integer,
+  "points" integer,
+  "goals_for" integer,
+  "goals_against" integer,
+  "modus" integer,
+
+  PRIMARY KEY ("team", "round" ,"season", "modus")
+);
+
 
 CREATE TABLE "fixtures" (
   "id" integer PRIMARY KEY,

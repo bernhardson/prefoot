@@ -9,15 +9,17 @@ type Repository struct {
 	Logger zerolog.Logger
 	Teams  interface {
 		Insert(*TeamRow) (int64, error)
+		Select(int) (*TeamRow, error)
 	}
 	Venues interface {
 		Insert(*VenueRow) (int64, error)
 	}
 	Players interface {
 		Insert(*PlayerRow) (int64, error)
-		InsertSeasonStats(*PlayerStatisticsRow) (int64, error)
+		InsertSeasonStats(*PlayerSeasonStatsRow) (int64, error)
 		InsertStats(*PlayerStatsRow) (int64, error)
 		SelectPlayersAndStatisticsByTeamId(int) (*[]*PlayersJoinOnPlayerStatsRow, error)
+		SelectPlayersByTeamId(int) ([]*PlayerRow, error)
 	}
 	Fixture interface {
 		Insert(*FixtureRow) (int64, error)
@@ -31,5 +33,9 @@ type Repository struct {
 	Coach interface {
 		Insert(*CoachRow) (int64, error)
 		InsertCareer(*CoachCareerRow) (int64, error)
+	}
+
+	Standing interface {
+		Insert(*StandingRow) (int64, error)
 	}
 }

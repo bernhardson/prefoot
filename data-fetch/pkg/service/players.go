@@ -56,7 +56,7 @@ func FetchAndInsertPlayers(repo *database.Repository, league int, season int) (*
 					repo.Logger.Debug().Msg(err.Error())
 				}
 				//insert season stats
-				_, err = repo.Players.InsertSeasonStats(&database.PlayerStatisticsRow{
+				_, err = repo.Players.InsertSeasonStats(&database.PlayerSeasonStatsRow{
 					PlayerID:           p.PlayerDetails.ID,
 					Season:             season,
 					TeamID:             s.Team.ID,

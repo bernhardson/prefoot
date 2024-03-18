@@ -11,6 +11,7 @@ const (
 	insertPlayerStatistics       = `INSERT INTO player_statistics (player, fixture, team, season, minutes, position, rating, captain, substitute, shots_total, shots_on, goals_scored, goals_assisted, passes_total, passes_key, accuracy, tackles, block, interceptions, duels_total, duels_won, dribbles_total,dribbles_won, yellow, red, penalty_won, penalty_committed, penalty_scored, penalty_missed, penalty_saved, saves)	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17,$18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31)`
 	insertPlayer                 = `INSERT INTO players (id, team, season, firstname, lastname, birthplace, birthcountry, birthdate) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
 	insertPlayerStatisticsSeason = `INSERT INTO player_statistics_season ("player","season", "team", "minutes", "position", "rating","captain", "games", "lineups", "shots_total", "shots_on", "goals_scored", "goals_assisted", "passes_total", "passes_key","accuracy", "tackles", "block", "interceptions", "duels_total", "duels_won", "dribbles_total", "dribbles_won", "yellow", "red", "penalty_won","penalty_committed", "penalty_scored", "penalty_missed", "penalty_saved", "saves") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31)`
+	selectPlayerStats            = `SELECT p.id AS player_id, p.team, p.season, p.firstname, p.lastname, p.birthplace, p.birthcountry, p.birthdate, ps.fixture, ps.minutes, ps.position, ps.rating, ps.captain, ps.substitute, ps.shots_total, ps.shots_on, ps.goals_scored, ps.goals_assisted, ps.passes_total, ps.passes_key, ps.accuracy, ps.tackles, ps.block, ps.interceptions, ps.duels_total, ps.duels_won, ps.dribbles_total, ps.dribbles_won, ps.yellow, ps.red, ps.penalty_won, ps.penalty_committed, ps.penalty_scored, ps.penalty_missed, ps.penalty_saved, ps.saves FROM players p JOIN player_statistics ps ON p.team = ps.team WHERE p.team = $1`
 )
 
 type PlayerModel struct {
@@ -36,6 +37,21 @@ func (pm *PlayerModel) Insert(p *PlayerRow) (int64, error) {
 		p.LastName, p.BirthPlace,
 		p.BirthCountry, p.BirthDate)
 	return row.RowsAffected(), err
+}
+
+func (pm *PlayerModel) SelectPlayersByTeamId(id int) ([]*PlayerRow, error) {
+
+	rows, err := pm.Pool.Query(context.Background(), "SELECT * FROM players WHERE team = $1", id)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	players, err := pgx.CollectRows(rows, pgx.RowToAddrOfStructByName[PlayerRow])
+	if err != nil {
+		return nil, err
+	}
+	return players, nil
 }
 
 type PlayerStatsRow struct {
@@ -87,7 +103,7 @@ func (pm *PlayerModel) InsertStats(ps *PlayerStatsRow) (int64, error) {
 	return row.RowsAffected(), err
 }
 
-type PlayerStatisticsRow struct {
+type PlayerSeasonStatsRow struct {
 	PlayerID           int     `json:"playerID"`
 	Season             int     `json:"season"`
 	TeamID             int     `json:"teamID"`
@@ -121,7 +137,7 @@ type PlayerStatisticsRow struct {
 	GoalkeeperSaves    int     `json:"goalkeeperSaves"`
 }
 
-func (pm *PlayerModel) InsertSeasonStats(s *PlayerStatisticsRow) (int64, error) {
+func (pm *PlayerModel) InsertSeasonStats(s *PlayerSeasonStatsRow) (int64, error) {
 
 	row, err := pm.Pool.Exec(
 		context.Background(),
@@ -182,108 +198,11 @@ func (pm *PlayerModel) SelectPlayersAndStatisticsByTeamId(id int) (*[]*PlayersJo
 	// Perform a JOIN query to retrieve data from both tables
 	rows, err := pm.Pool.Query(
 		context.Background(),
-		`SELECT
-        p.id AS player_id,
-        p.team,
-        p.season,
-        p.firstname,
-        p.lastname,
-        p.birthplace,
-        p.birthcountry,
-        p.birthdate,
-        ps.fixture,
-        ps.minutes,
-        ps.position,
-        ps.rating,
-        ps.captain,
-        ps.substitute,
-        ps.shots_total,
-        ps.shots_on,
-        ps.goals_scored,
-        ps.goals_assisted,
-        ps.passes_total,
-        ps.passes_key,
-        ps.accuracy,
-        ps.tackles,
-        ps.block,
-        ps.interceptions,
-        ps.duels_total,
-        ps.duels_won,
-        ps.dribbles_total,
-        ps.dribbles_won,
-        ps.yellow,
-        ps.red,
-        ps.penalty_won,
-        ps.penalty_committed,
-        ps.penalty_scored,
-        ps.penalty_missed,
-        ps.penalty_saved,
-        ps.saves
-    FROM
-        players p
-    JOIN
-        player_statistics ps ON p.team = ps.team
-	WHERE p.team = $1;`, id)
-
+		selectPlayerStats, id)
 	if err != nil {
 		return nil, err
 	}
 
 	pls, err := pgx.CollectRows(rows, pgx.RowToAddrOfStructByName[PlayersJoinOnPlayerStatsRow])
 	return &pls, err
-}
-
-type Player struct {
-	Player           int
-	ID               int
-	Team             int
-	Season           int
-	FirstName        string
-	LastName         string
-	BirthPlace       string
-	BirthCountry     string
-	BirthDate        string
-	Fixture          int
-	Minutes          int
-	Position         string
-	Rating           float64
-	Captain          bool
-	Substitute       bool
-	ShotsTotal       int
-	ShotsOn          int
-	GoalsScored      int
-	GoalsAssisted    int
-	PassesTotal      int
-	PassesKey        int
-	Accuracy         int
-	Tackles          int
-	Block            int
-	Interceptions    int
-	DuelsTotal       int
-	DuelsWon         int
-	DribblesTotal    int
-	DribblesWon      int
-	Yellow           int
-	Red              int
-	PenaltyWon       int
-	PenaltyCommitted int
-	PenaltyScored    int
-	PenaltyMissed    int
-	PenaltySaved     int
-	Saves            int
-}
-
-func (pm *PlayerModel) SelectPlayersByTeamId(id int) ([]*Player, error) {
-
-	rows, err := pm.Pool.Query(context.Background(), "SELECT * FROM players WHERE team = $1", id)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-
-	players, err := pgx.CollectRows(rows, pgx.RowToAddrOfStructByName[Player])
-	if err != nil {
-		return nil, err
-	}
-	return players, nil
 }

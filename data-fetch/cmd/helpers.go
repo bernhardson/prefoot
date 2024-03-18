@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"runtime/debug"
@@ -27,4 +28,17 @@ func (app *application) clientError(w http.ResponseWriter, status int) {
 // the user.
 func (app *application) notFound(w http.ResponseWriter) {
 	app.clientError(w, http.StatusNotFound)
+}
+
+type RapidResponse struct {
+	Get        string        `json:"get"`
+	Parameters interface{}   `json:"parameters"`
+	Errors     interface{}   `json:"errors"`
+	Results    int           `json:"results"`
+	Paging     interface{}   `json:"paging"`
+	Response   []interface{} `json:"response"`
+}
+
+func (app *application) parseRapidError(resp RapidResponse) error {
+	return errors.New(resp.Errors.(string))
 }
