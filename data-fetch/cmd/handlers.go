@@ -6,8 +6,40 @@ import (
 	"strconv"
 
 	"github.com/bernhardson/prefoot/data-fetch/pkg/database"
-	"github.com/bernhardson/prefoot/data-fetch/pkg/fetch"
 )
+
+func (app *application) getRounds(w http.ResponseWriter, r *http.Request) {
+
+	league, err := strconv.Atoi(r.URL.Query().Get("league"))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	season, err := strconv.Atoi(r.URL.Query().Get("season"))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	ts, err := strconv.ParseInt(r.URL.Query().Get("ts"), 10, 0)
+	var res interface{}
+
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	if err == nil {
+		res, err = app.repo.Fixture.SelectRoundByTimestamp(league, season, ts)
+	}
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(res)
+}
 
 func (app *application) getPlayers(w http.ResponseWriter, r *http.Request) {
 
@@ -47,7 +79,67 @@ func (app *application) getStatistics(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(res)
 }
 
+type standingResponse struct {
+	Standings *[]*database.ResultRow    `json:"standings"`
+	Teams     map[int]*database.TeamRow `json:"teams"`
+}
+
 func (app *application) getLeagueStanding(w http.ResponseWriter, r *http.Request) {
+
+	league, err := strconv.Atoi(r.URL.Query().Get("league"))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	season, err := strconv.Atoi(r.URL.Query().Get("season"))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	standings, err := app.repo.Result.SelectByLeagueAndSeason(league, season)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	teamSeason, err := app.repo.Teams.SelectTeamsSeason(league, season)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	var ids = make([]int, 20)
+	for _, t := range *teamSeason {
+		ids = append(ids, t.Team)
+	}
+
+	teams, err := app.repo.Teams.SelectTeamsByIds(&ids)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	ts := make(map[int]*database.TeamRow)
+	for _, t := range *teams {
+		ts[t.Id] = t
+	}
+	resp := &standingResponse{
+		Teams:     ts,
+		Standings: standings,
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(resp)
+
+}
+
+type fixture struct {
+	Fixture *database.FixtureRow `json:"fixture"`
+	Home    *database.TeamRow    `json:"home"`
+	Away    *database.TeamRow    `json:"away"`
+}
+
+func (app *application) getFixture(w http.ResponseWriter, r *http.Request) {
 
 	league, err := strconv.Atoi(r.URL.Query().Get("league"))
 	if err != nil {
@@ -59,40 +151,12 @@ func (app *application) getLeagueStanding(w http.ResponseWriter, r *http.Request
 		app.serverError(w, err)
 	}
 
-	res, err := fetch.GetStanding(league, season)
-	if err != nil {
-		app.serverError(w, err)
-	} else {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(res.League.Standings[0])
-	}
-}
-
-type fixture struct {
-	Fixture *database.FixtureRow `json:"fixture"`
-	Home    *database.TeamRow    `json:"home"`
-	Away    *database.TeamRow    `json:"away"`
-}
-
-func (app *application) getFixture(w http.ResponseWriter, r *http.Request) {
-
-	/* league, err := strconv.Atoi(r.URL.Query().Get("league"))
-	if err != nil {
-		app.serverError(w, err)
-	}
-
-	season, err := strconv.Atoi(r.URL.Query().Get("season"))
-	if err != nil {
-		app.serverError(w, err)
-	} */
-
 	round, err := strconv.Atoi(r.URL.Query().Get("round"))
 	if err != nil {
 		app.serverError(w, err)
 	}
 
-	fixtures, err := app.repo.Fixture.SelectFixturesByRound(round)
+	fixtures, err := app.repo.Fixture.SelectFixtureByLeagueSeasonRound(league, season, round)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -120,25 +184,3 @@ func (app *application) getFixture(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(body)
 
 }
-
-/*
-func getFixtures(c *gin.Context) {
-	l, err := strconv.Atoi(c.Param("league"))
-	if err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
-	}
-	s, err := strconv.Atoi(c.Param("season"))
-	if err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
-	}
-	r, err := strconv.Atoi(c.Param("round"))
-	if err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
-	}
-	ss, err := service.GetFixtures(l, s, r, Pool, Logger)
-	if err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
-	}
-	c.IndentedJSON(http.StatusOK, ss)
-}
-*/

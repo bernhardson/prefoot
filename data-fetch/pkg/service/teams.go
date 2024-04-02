@@ -34,6 +34,15 @@ func FetchAndInsertTeams(repo *database.Repository, league int, season int) (*[]
 		if err != nil {
 			repo.Logger.Err(err).Msg(strconv.FormatInt(row, 10))
 		}
+		ts := &database.TeamSeasonRow{
+			League: league,
+			Season: season,
+			Team:   tv.Team.ID,
+		}
+		row, err = repo.Teams.InsertTeamSeason(ts)
+		if err != nil {
+			repo.Logger.Err(err).Msg(strconv.FormatInt(row, 10))
+		}
 	}
 	return &resp.TeamVenues, nil
 }

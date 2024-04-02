@@ -10,7 +10,9 @@ DROP TABLE IF EXISTS "leagues" CASCADE;
 DROP TABLE IF EXISTS "coaches" CASCADE;
 DROP TABLE IF EXISTS "players" CASCADE;
 DROP TABLE IF EXISTS "team_statistics" CASCADE;
-DROP TABLE IF EXISTS "standings" CASCADE;
+DROP TABLE IF EXISTS "results" CASCADE;
+DROP TABLE IF EXISTS "seasons" CASCADE;
+DROP TABLE IF EXISTS "rounds" CASCADE;
 
 CREATE TABLE "leagues" (
   "id" integer PRIMARY KEY,
@@ -25,7 +27,14 @@ CREATE TABLE "teams" (
   "code" varchar
 );
 
-CREATE TABLE "standings"(
+CREATE TABLE "seasons" (
+  "league" int,
+  "season" int,
+  "team" int,
+  PRIMARY KEY ("league", "season", "team")
+);
+
+CREATE TABLE "results"(
   "team" integer,
   "league" integer,
   "round" integer,
@@ -34,10 +43,10 @@ CREATE TABLE "standings"(
   "goals_for" integer,
   "goals_against" integer,
   "modus" integer,
+  "elapsed" integer,
 
-  PRIMARY KEY ("team", "round" ,"season", "modus")
+  PRIMARY KEY ("team", "round" ,"season")
 );
-
 
 CREATE TABLE "fixtures" (
   "id" integer PRIMARY KEY,
@@ -56,6 +65,16 @@ CREATE TABLE "fixtures" (
   "away_goals_half" integer,
   CONSTRAINT fk_fixtures_leagues FOREIGN KEY ("league") REFERENCES "leagues" ("id") DEFERRABLE INITIALLY DEFERRED
 );
+
+CREATE TABLE "rounds" (
+  "start" integer,
+  "round" integer,
+  "season" integer,
+  "league" integer,
+  PRIMARY KEY ("round", "season", "league")
+);
+
+CREATE INDEX rounds_timestamp ON rounds("timestamp");
 
 CREATE TABLE "venues" (
   "id" integer PRIMARY KEY,

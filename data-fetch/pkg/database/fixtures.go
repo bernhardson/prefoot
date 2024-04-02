@@ -19,7 +19,14 @@ const (
 
 	insertFormation = `INSERT INTO formations (fixture, team, formation, player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, sub1, sub2, sub3, sub4, sub5, coach)
 						VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)`
-	selectFixturesByRound = "SELECT * FROM fixtures WHERE round = $1"
+
+	insertRound              = `INSERT INTO rounds ("league",  "season", "round", "start") VALUES ($1, $2, $3, $4) ON CONFLICT ("league", "season", "round") DO UPDATE SET "start" = EXCLUDED."start";`
+	selectStartEndFromRounds = `SELECT "start" FROM rounds WHERE league = $1 AND season = $2 AND round = $3`
+	selectRoundsByTimestamp  = `SELECT "round" FROM rounds WHERE "league" = $1 AND season = $2 AND "start" > $3  AND "start" = (SELECT MIN("start") FROM rounds WHERE "league" = $1 AND season = $2 AND "start" > $3) LIMIT 1;
+`
+
+	selectFixturesByRound             = "SELECT * FROM fixtures WHERE round = $1"
+	selectFixturesByLeagueSeasonRound = `SELECT * FROM "fixtures" WHERE "league" = $1 AND "season" = $2 AND "round"= $3`
 )
 
 type FixtureModel struct {
@@ -136,9 +143,63 @@ func (pm *FixtureModel) SelectFixturesByRound(round int) ([]*FixtureRow, error) 
 	}
 	defer rows.Close()
 
-	players, err := pgx.CollectRows(rows, pgx.RowToAddrOfStructByName[FixtureRow])
+	fixtures, err := pgx.CollectRows(rows, pgx.RowToAddrOfStructByName[FixtureRow])
 	if err != nil {
 		return nil, err
 	}
-	return players, nil
+	return fixtures, nil
+}
+
+func (pm *FixtureModel) SelectFixtureByLeagueSeasonRound(league, season, round int) ([]*FixtureRow, error) {
+
+	rows, err := pm.Pool.Query(
+		context.Background(), selectFixturesByLeagueSeasonRound, league, season, round)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	fixture, err := pgx.CollectRows(rows, pgx.RowToAddrOfStructByName[FixtureRow])
+	if err != nil {
+		return nil, err
+	}
+	return fixture, nil
+}
+
+type RoundRow struct {
+	Start  int64 `json:"start"`
+	Round  int   `json:"round"`
+	Season int   `json:"season"`
+	League int   `json:"league"`
+}
+
+func (fm *FixtureModel) InsertRound(f *RoundRow) (int64, error) {
+
+	row, err := fm.Pool.Exec(
+		context.Background(),
+		insertRound,
+		f.League, f.Season, f.Round, f.Start)
+
+	return row.RowsAffected(), err
+}
+
+func (pm *FixtureModel) SelectTimestampFromRounds(league, season, round int) (int, error) {
+
+	start := -1
+	err := pm.Pool.QueryRow(context.Background(), selectStartEndFromRounds, league, season, round).Scan(&start)
+	if err != nil {
+		return start, err
+	}
+	return start, nil
+}
+
+func (fm *FixtureModel) SelectRoundByTimestamp(league, season int, timestamp int64) (*RoundRow, error) {
+
+	row := &RoundRow{Start: timestamp, League: league, Season: season}
+
+	err := fm.Pool.QueryRow(context.Background(), selectRoundsByTimestamp, league, season, timestamp).Scan(&row.Round)
+	if err != nil {
+		return nil, err
+	}
+	return row, nil
 }

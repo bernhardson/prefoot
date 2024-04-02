@@ -3,6 +3,7 @@ package fetch
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 
 	"github.com/bernhardson/prefoot/data-fetch/pkg/comm"
 )
@@ -240,6 +241,9 @@ func GetPlayerById(id, season int) (*Player, error) {
 	err = json.Unmarshal(data, &p)
 	if err != nil {
 		return nil, err
+	}
+	if len(p.Response) == 0 {
+		return nil, fmt.Errorf("Player %d missing in Rapid API", id)
 	}
 	return &p.Response[0], nil
 }

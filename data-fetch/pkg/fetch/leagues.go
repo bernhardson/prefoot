@@ -10,12 +10,13 @@ import (
 
 const (
 	getLeaguesURL  = "https://api-football-v1.p.rapidapi.com/v3/leagues"
+	getLeagueURL   = "https://api-football-v1.p.rapidapi.com/v3/leagues?id=%d"
 	getStandingURL = "https://api-football-v1.p.rapidapi.com/v3/standings?league=%d&season=%d"
 )
 
 type LeagueResponse struct {
 	Get        string        `json:"get"`
-	Parameters []interface{} `json:"parameters"`
+	Parameters LeagueParams  `json:"parameters"`
 	Errors     []interface{} `json:"errors"`
 	Results    int           `json:"results"`
 	Paging     Paging        `json:"paging"`
@@ -79,6 +80,22 @@ type SeasonCoverageFixtures struct {
 func GetLeagues() (*LeagueResponse, error) {
 
 	data, err := comm.GetHttpBodyRaw(getLeaguesURL)
+	if err != nil {
+		return nil, err
+	}
+
+	l := &LeagueResponse{}
+	err = json.Unmarshal(data, l)
+	if err != nil {
+		return nil, err
+	}
+
+	return l, nil
+}
+
+func GetLeague(id int) (*LeagueResponse, error) {
+
+	data, err := comm.GetHttpBodyRaw(fmt.Sprintf(getLeagueURL, id))
 	if err != nil {
 		return nil, err
 	}

@@ -10,6 +10,9 @@ type Repository struct {
 	Teams  interface {
 		Insert(*TeamRow) (int64, error)
 		Select(int) (*TeamRow, error)
+		InsertTeamSeason(*TeamSeasonRow) (int64, error)
+		SelectTeamsSeason(int, int) (*[]*TeamIds, error)
+		SelectTeamsByIds(*[]int) (*[]*TeamRow, error)
 	}
 	Venues interface {
 		Insert(*VenueRow) (int64, error)
@@ -25,7 +28,11 @@ type Repository struct {
 		Insert(*FixtureRow) (int64, error)
 		InsertTeamsStats(*TeamStatisticsRow) (int64, error)
 		InsertFormation(*FormationRow) (int64, error)
+		InsertRound(*RoundRow) (int64, error)
 		SelectFixturesByRound(int) ([]*FixtureRow, error)
+		SelectFixtureByLeagueSeasonRound(int, int, int) ([]*FixtureRow, error)
+		SelectTimestampFromRounds(int, int, int) (int, error)
+		SelectRoundByTimestamp(int, int, int64) (*RoundRow, error)
 	}
 	League interface {
 		Insert(*fetch.League) (int64, error)
@@ -35,7 +42,9 @@ type Repository struct {
 		InsertCareer(*CoachCareerRow) (int64, error)
 	}
 
-	Standing interface {
-		Insert(*StandingRow) (int64, error)
+	Result interface {
+		Insert(*ResultRow) (int64, error)
+		Select(int) (*ResultRow, error)
+		SelectByLeagueAndSeason(int, int) (*[]*ResultRow, error)
 	}
 }

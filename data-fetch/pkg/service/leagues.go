@@ -21,3 +21,19 @@ func FetchAndInsertLeagues(repo *database.Repository) (*[]int, error) {
 	}
 	return &failed, nil
 }
+
+func FetchAndInsertLeague(repo *database.Repository, league int) (*fetch.LeagueResponse, *[]int, error) {
+	ls, err := fetch.GetLeague(league)
+	var failed []int
+	if err != nil {
+		log.Err(err).Msg("")
+	}
+
+	for _, l := range ls.Response {
+		_, err := repo.League.Insert(&l.League)
+		if err != nil {
+			failed = append(failed, l.League.ID)
+		}
+	}
+	return ls, &failed, nil
+}
