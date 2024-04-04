@@ -253,6 +253,9 @@ func (app *application) getPlayerStats(w http.ResponseWriter, r *http.Request) {
 	for _, stat := range *playerStats {
 
 		statsAgg := resp.Data[stat.Player].Stats
+		if stat.Minutes == 0 {
+			continue
+		}
 		if statsAgg == nil {
 			statsAgg = &database.PlayerStatsRow{}
 		}
@@ -286,9 +289,15 @@ func (app *application) getPlayerStats(w http.ResponseWriter, r *http.Request) {
 		games[stat.Player]++
 	}
 
-	for playerID, numGames := range games {
-		statsAgg := resp.Data[playerID].Stats
+	for playerID, entry := range resp.Data {
 
+		if games[playerID] == 0 {
+			delete(resp.Data, playerID)
+			continue
+		}
+
+		statsAgg := entry.Stats
+		numGames := games[playerID]
 		if numGames > 0 {
 			statsAgg.Accuracy /= numGames
 			statsAgg.Rating /= float64(numGames)

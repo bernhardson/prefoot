@@ -27,7 +27,7 @@ const (
 	selectLatestFinishedRound = `SELECT "round" FROM rounds WHERE "league" = $1 AND season = $2 AND "end" <= $3 ORDER BY ABS("end" - $3) DESC LIMIT 1;`
 
 	selectFixturesByRound             = "SELECT * FROM fixtures WHERE round = $1"
-	selectFixturesByLeagueSeasonRound = `SELECT * FROM "fixtures" WHERE "league" = $1 AND "season" = $2`
+	selectFixturesByLeagueSeasonRound = `SELECT * FROM "fixtures" WHERE "league" = $1 AND "season" = $2 AND "round" = $3`
 	selectFixturesByLastNRounds       = `SELECT id FROM fixtures WHERE league=$1 AND season=$2 AND round BETWEEN $3 and $4`
 )
 
