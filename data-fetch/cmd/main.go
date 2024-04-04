@@ -34,7 +34,7 @@ func main() {
 	defer pool.Close()
 
 	logger := zerolog.New(zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}).
-		Level(zerolog.InfoLevel).
+		Level(zerolog.DebugLevel).
 		With().
 		Timestamp().
 		Caller().
@@ -56,17 +56,20 @@ func main() {
 		repo:   &repo,
 	}
 
-	init := false
-
 	update := false
-
 	if update {
+		logger.Err(service.UpdateFixture(&repo, 78, 2023)).Msg("")
+		// _, _, err = service.FetchAndInsertPlayers(app.repo, 78, 2018)
+		// if err != nil {
+		// 	logger.Err(err).Msg("")
+		// }
 
 	}
 
+	init := false
 	if init {
-		// leagues := []int{2, 39, 45, 48, 3, 142, 78, 79, 81, 143, 71, 137}
 		leagues := []int{71, 137}
+		// leagues := []int{78}
 		go initDB(leagues, &logger, &repo)
 	}
 	addr := "localhost:8080"
@@ -75,7 +78,6 @@ func main() {
 		Handler: app.routes(),
 	}
 	srv.ListenAndServe()
-
 }
 
 func initDB(leagues []int, logger *zerolog.Logger, repo *database.Repository) {
@@ -84,8 +86,6 @@ func initDB(leagues []int, logger *zerolog.Logger, repo *database.Repository) {
 		logger.Err(err).Msg(fmt.Sprintf("insert leagues: failed=%v", *fs))
 
 		for _, s := range lresp.Response[0].Seasons {
-			// for _, year := range seasons {
-
 			year := s.Year
 
 			logger.Info().Msg(fmt.Sprintf("inserting league=%d#season=%d", l, year))

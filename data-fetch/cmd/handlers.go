@@ -36,7 +36,7 @@ func (app *application) getRounds(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 	}
 
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(res)
 }
@@ -57,7 +57,7 @@ func (app *application) getPlayers(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 	}
 
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(http.StatusFound)
 	json.NewEncoder(w).Encode(res)
 
@@ -74,7 +74,7 @@ func (app *application) getStatistics(w http.ResponseWriter, r *http.Request) {
 		app.clientError(w, http.StatusNotFound)
 	}
 
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(http.StatusFound)
 	json.NewEncoder(w).Encode(res)
 }
@@ -127,7 +127,7 @@ func (app *application) getLeagueStanding(w http.ResponseWriter, r *http.Request
 		Teams:     ts,
 		Standings: standings,
 	}
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(resp)
 
@@ -179,8 +179,124 @@ func (app *application) getFixture(w http.ResponseWriter, r *http.Request) {
 		body = append(body, fixture)
 	}
 
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(body)
+
+}
+
+func (app *application) getPlayerStats(w http.ResponseWriter, r *http.Request) {
+
+	league, err := strconv.Atoi(r.URL.Query().Get("league"))
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	season, err := strconv.Atoi(r.URL.Query().Get("season"))
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	team, err := strconv.Atoi(r.URL.Query().Get("team"))
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	round, err := strconv.Atoi(r.URL.Query().Get("round"))
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	players, err := app.repo.Players.SelectPlayersByTeamLeagueSeason(season, team)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	fixtures, err := app.repo.Fixture.SelectFixtureIdsForLastNRounds(league, season, round, 7)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	var pIds, fIds []int
+	for _, p := range players {
+		pIds = append(pIds, p.Id)
+	}
+	for _, f := range *fixtures {
+		fIds = append(fIds, *f)
+	}
+
+	playerStats, err := app.repo.Players.SelectPlayerStatisticsByPlayersFixturesTeam(pIds, fIds, team)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	type player struct {
+		Player *database.PlayerRow      `json:"player"`
+		Stats  *database.PlayerStatsRow `json:"stats"`
+	}
+
+	type response struct {
+		Data map[int]*player `json:"data"`
+	}
+
+	data := make(map[int]*player)
+	resp := &response{Data: data}
+	for _, pl := range players {
+		resp.Data[pl.Id] = &player{
+			Player: pl,
+		}
+	}
+
+	games := make(map[int]int)
+	for _, stat := range *playerStats {
+
+		statsAgg := resp.Data[stat.Player].Stats
+		if statsAgg == nil {
+			statsAgg = &database.PlayerStatsRow{}
+		}
+		// Aggregate field values into statsAgg
+		statsAgg.Minutes += stat.Minutes
+		statsAgg.ShotsTotal += stat.ShotsTotal
+		statsAgg.ShotsOn += stat.ShotsOn
+		statsAgg.GoalsScored += stat.GoalsScored
+		statsAgg.GoalsAssisted += stat.GoalsAssisted
+		statsAgg.PassesTotal += stat.PassesTotal
+		statsAgg.PassesKey += stat.PassesKey
+		statsAgg.Accuracy += stat.Accuracy
+		statsAgg.Tackles += stat.Tackles
+		statsAgg.Block += stat.Block
+		statsAgg.Interceptions += stat.Interceptions
+		statsAgg.DuelsTotal += stat.DuelsTotal
+		statsAgg.DuelsWon += stat.DuelsWon
+		statsAgg.DribblesTotal += stat.DribblesTotal
+		statsAgg.DribblesWon += stat.DribblesWon
+		statsAgg.Yellow += stat.Yellow
+		statsAgg.Red += stat.Red
+		statsAgg.PenaltyWon += stat.PenaltyWon
+		statsAgg.PenaltyCommitted += stat.PenaltyCommitted
+		statsAgg.PenaltyScored += stat.PenaltyScored
+		statsAgg.PenaltyMissed += stat.PenaltyMissed
+		statsAgg.PenaltySaved += stat.PenaltySaved
+		statsAgg.Saves += stat.Saves
+		statsAgg.Rating = statsAgg.Rating + stat.Rating
+
+		resp.Data[stat.Player].Stats = statsAgg
+		games[stat.Player]++
+	}
+
+	for playerID, numGames := range games {
+		statsAgg := resp.Data[playerID].Stats
+
+		if numGames > 0 {
+			statsAgg.Accuracy /= numGames
+			statsAgg.Rating /= float64(numGames)
+		}
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(resp)
 
 }

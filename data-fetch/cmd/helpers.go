@@ -13,7 +13,7 @@ func (app *application) serverError(w http.ResponseWriter, err error) {
 
 	app.logger.Err(err).Msg(fmt.Sprintf("%s\n%s", err.Error(), debug.Stack()))
 
-	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+	http.Error(w, err.Error(), http.StatusInternalServerError)
 }
 
 // The clientError helper sends a specific status code and corresponding description

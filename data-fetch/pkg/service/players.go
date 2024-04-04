@@ -27,7 +27,7 @@ func FetchAndInsertPlayers(repo *database.Repository, league int, season int) (*
 				row, err := repo.Players.Insert(
 					&database.PlayerRow{
 						Id:           p.PlayerDetails.ID,
-						TeamID:       s.Team.ID,
+						Team:         s.Team.ID,
 						Season:       season,
 						FirstName:    p.PlayerDetails.FirstName,
 						LastName:     p.PlayerDetails.LastName,

@@ -68,6 +68,7 @@ CREATE TABLE "fixtures" (
 
 CREATE TABLE "rounds" (
   "start" integer,
+  "end" integer,
   "round" integer,
   "season" integer,
   "league" integer,
@@ -117,7 +118,7 @@ CREATE TABLE "formations" (
 );
 
 CREATE TABLE "players" (
-  "id" integer PRIMARY KEY,
+  "id" integer,
   "team" integer,
   "season" integer,
   "firstname" varchar,
@@ -125,6 +126,7 @@ CREATE TABLE "players" (
   "birthplace" varchar,
   "birthcountry" varchar,
   "birthdate" varchar
+  PRIMARY KEY ("id", "team", "season")
 );
 
 CREATE TABLE "player_statistics" (

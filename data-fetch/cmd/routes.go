@@ -11,6 +11,7 @@ func (app *application) routes() *http.ServeMux {
 	mux.HandleFunc("/standings/", app.getLeagueStanding)
 	mux.HandleFunc("/fixtures/", app.getFixture)
 	mux.HandleFunc("/rounds/", app.getRounds)
+	mux.HandleFunc("/statistics/players/", app.getPlayerStats)
 
 	return mux
 }

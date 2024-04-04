@@ -23,6 +23,8 @@ type Repository struct {
 		InsertStats(*PlayerStatsRow) (int64, error)
 		SelectPlayersAndStatisticsByTeamId(int) (*[]*PlayersJoinOnPlayerStatsRow, error)
 		SelectPlayersByTeamId(int) ([]*PlayerRow, error)
+		SelectPlayersByTeamLeagueSeason(int, int) ([]*PlayerRow, error)
+		SelectPlayerStatisticsByPlayersFixturesTeam([]int, []int, int) (*[]*PlayerStatsRow, error)
 	}
 	Fixture interface {
 		Insert(*FixtureRow) (int64, error)
@@ -33,6 +35,9 @@ type Repository struct {
 		SelectFixtureByLeagueSeasonRound(int, int, int) ([]*FixtureRow, error)
 		SelectTimestampFromRounds(int, int, int) (int, error)
 		SelectRoundByTimestamp(int, int, int64) (*RoundRow, error)
+		SelectLatestFinishedRound(int, int, int64) (*RoundRow, error)
+		SelectFixtureIdsForLastNRounds(int, int, int, int) (*[]*int, error)
+		DeleteFixture(int) (int64, error)
 	}
 	League interface {
 		Insert(*fetch.League) (int64, error)

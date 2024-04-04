@@ -11,6 +11,7 @@ const (
 	insertFixture = `INSERT INTO fixtures (id, league, round, referee, timezone, timestamp, venue, season, home_team, away_team,
 						home_goals, away_goals, home_goals_half, away_goals_half)
 						VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);`
+	deleteFixture        = `DELETE FROM fixtures WHERE id = $1;`
 	insertTeamStatistics = "INSERT INTO team_statistics " +
 		"(team, fixture, shots_total, shots_on, shots_off, shots_blocked, " +
 		"shots_box, shots_outside, offsides, fouls, corners, possession, yellow, red, " +
@@ -20,13 +21,14 @@ const (
 	insertFormation = `INSERT INTO formations (fixture, team, formation, player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, sub1, sub2, sub3, sub4, sub5, coach)
 						VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)`
 
-	insertRound              = `INSERT INTO rounds ("league",  "season", "round", "start") VALUES ($1, $2, $3, $4) ON CONFLICT ("league", "season", "round") DO UPDATE SET "start" = EXCLUDED."start";`
-	selectStartEndFromRounds = `SELECT "start" FROM rounds WHERE league = $1 AND season = $2 AND round = $3`
-	selectRoundsByTimestamp  = `SELECT "round" FROM rounds WHERE "league" = $1 AND season = $2 AND "start" > $3  AND "start" = (SELECT MIN("start") FROM rounds WHERE "league" = $1 AND season = $2 AND "start" > $3) LIMIT 1;
-`
+	insertRound               = `INSERT INTO rounds ("league",  "season", "round", "start", "end") VALUES ($1, $2, $3, $4, $5) ON CONFLICT ("league", "season", "round") DO UPDATE SET "start" = EXCLUDED."start", "end" = EXCLUDED."end";`
+	selectStartEndFromRounds  = `SELECT "start" FROM rounds WHERE league = $1 AND season = $2 AND round = $3`
+	selectRoundsByTimestamp   = `SELECT "round" FROM rounds WHERE "league" = $1 AND season = $2 AND "start" > $3  AND "start" = (SELECT MIN("start") FROM rounds WHERE "league" = $1 AND season = $2 AND "start" > $3) LIMIT 1;`
+	selectLatestFinishedRound = `SELECT "round" FROM rounds WHERE "league" = $1 AND season = $2 AND "end" <= $3 ORDER BY ABS("end" - $3) DESC LIMIT 1;`
 
 	selectFixturesByRound             = "SELECT * FROM fixtures WHERE round = $1"
-	selectFixturesByLeagueSeasonRound = `SELECT * FROM "fixtures" WHERE "league" = $1 AND "season" = $2 AND "round"= $3`
+	selectFixturesByLeagueSeasonRound = `SELECT * FROM "fixtures" WHERE "league" = $1 AND "season" = $2`
+	selectFixturesByLastNRounds       = `SELECT id FROM fixtures WHERE league=$1 AND season=$2 AND round BETWEEN $3 and $4`
 )
 
 type FixtureModel struct {
@@ -168,6 +170,7 @@ func (pm *FixtureModel) SelectFixtureByLeagueSeasonRound(league, season, round i
 
 type RoundRow struct {
 	Start  int64 `json:"start"`
+	End    int64 `json:"end"`
 	Round  int   `json:"round"`
 	Season int   `json:"season"`
 	League int   `json:"league"`
@@ -178,7 +181,7 @@ func (fm *FixtureModel) InsertRound(f *RoundRow) (int64, error) {
 	row, err := fm.Pool.Exec(
 		context.Background(),
 		insertRound,
-		f.League, f.Season, f.Round, f.Start)
+		f.League, f.Season, f.Round, f.Start, f.End)
 
 	return row.RowsAffected(), err
 }
@@ -202,4 +205,48 @@ func (fm *FixtureModel) SelectRoundByTimestamp(league, season int, timestamp int
 		return nil, err
 	}
 	return row, nil
+}
+
+func (fm *FixtureModel) SelectLatestFinishedRound(league, season int, timestamp int64) (*RoundRow, error) {
+
+	row := &RoundRow{Start: timestamp, League: league, Season: season}
+
+	err := fm.Pool.QueryRow(context.Background(), selectLatestFinishedRound, league, season, timestamp).Scan(&row.Round)
+	if err != nil {
+		return nil, err
+	}
+	return row, nil
+}
+
+func (fm *FixtureModel) DeleteFixture(id int) (int64, error) {
+
+	result, err := fm.Pool.Exec(context.Background(), deleteFixture, id)
+	if err != nil {
+		return -1, err
+	}
+
+	return result.RowsAffected(), nil
+}
+
+func (fm *FixtureModel) SelectFixtureIdsForLastNRounds(league, season, round, n int) (*[]*int, error) {
+
+	var ret []*int
+	rows, err := fm.Pool.Query(context.Background(), selectFixturesByLastNRounds, league, season, round-n, round)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var id int
+		err := rows.Scan(&id)
+		if err != nil {
+			return nil, err
+		}
+		ret = append(ret, &id)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return &ret, err
 }

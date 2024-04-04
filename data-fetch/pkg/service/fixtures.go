@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
@@ -13,6 +14,9 @@ import (
 	"github.com/bernhardson/prefoot/data-fetch/pkg/fetch"
 )
 
+// Initialize fixtures, formations, team_statistics, player_statistics, rounds tables.
+// Queries Rapid API then insert into local postgres.
+// Some data manipulation is done on the fly.
 func FetchAndInsertFixtures(repo *database.Repository, league, season int) error {
 
 	fr, err := fetch.FetchFixtures(league, season)
@@ -33,10 +37,35 @@ func FetchAndInsertFixtures(repo *database.Repository, league, season int) error
 		if err != nil {
 			repo.Logger.Err(err).Msg("")
 		}
-		InsertFixture(repo, &fd.FixtureDetail, &f, league, season, round)
+		InsertFixture(repo, &fd.FixtureDetail, league, season, round)
 		repo.Logger.Info().Msg(fmt.Sprintf("Inserted fixture=%d", f.Fixture.ID))
 	}
 
+	return nil
+}
+
+func UpdateFixture(repo *database.Repository, league, season int) error {
+
+	ts := time.Now().Unix()
+	row, err := repo.Fixture.SelectLatestFinishedRound(league, season, ts)
+	if err != nil {
+		return err
+	}
+	fixtures, err := repo.Fixture.SelectFixtureByLeagueSeasonRound(league, season, row.Round)
+	if err != nil {
+		return err
+	}
+	for _, f := range fixtures {
+		fD, err := fetch.GetFixtureDetail(f.ID)
+		if err != nil {
+			return err
+		}
+		_, err = repo.Fixture.DeleteFixture(f.ID)
+		if err != nil {
+			return err
+		}
+		InsertFixture(repo, &fD.FixtureDetail, league, season, f.Round)
+	}
 	return nil
 }
 
@@ -44,27 +73,39 @@ func FetchAndInsertFixtures(repo *database.Repository, league, season int) error
 // since fixture details come with all kinds of match information such as
 // lineups, player statistics etc. that are not part of the fixture table
 // we insert those to database as well while the information is available
-func InsertFixture(repo *database.Repository, fr *[]fetch.FixtureDetail, f *fetch.Fixture, league, season, round int) {
+func InsertFixture(repo *database.Repository, fr *[]fetch.FixtureDetail, league, season, round int) {
 
 	for _, fd := range *fr {
-
 		start, err := repo.Fixture.SelectTimestampFromRounds(league, season, round)
+		end := -1
 		if err != nil {
 			repo.Logger.Err(err).Msg("")
 		}
+
 		if start == -1 {
-			start = f.Fixture.Timestamp
+			start = fd.Fixture.Timestamp
 
 		} else {
-			if start > f.Fixture.Timestamp {
-				start = f.Fixture.Timestamp
+			if start > fd.Fixture.Timestamp {
+				start = fd.Fixture.Timestamp
 			}
 		}
+
+		if end == -1 {
+			end = fd.Fixture.Timestamp
+
+		} else {
+			if end < fd.Fixture.Timestamp {
+				end = fd.Fixture.Timestamp
+			}
+		}
+
 		_, err = repo.Fixture.InsertRound(&database.RoundRow{
 			Start:  int64(start),
 			Round:  round,
 			Season: season,
-			League: league})
+			League: league,
+			End:    int64(end)})
 
 		if err != nil {
 			repo.Logger.Err(err).Msg("")
@@ -73,23 +114,23 @@ func InsertFixture(repo *database.Repository, fr *[]fetch.FixtureDetail, f *fetc
 		repo.Logger.Debug().Msg(fmt.Sprintf("insert fixture :%d", fd.Fixture.ID))
 		//insert fixture
 		_, err = repo.Fixture.Insert(&database.FixtureRow{
-			ID:            f.Fixture.ID,
-			League:        f.League.ID,
+			ID:            fd.Fixture.ID,
+			League:        fd.League.ID,
 			Round:         round,
-			Referee:       f.Fixture.Referee,
+			Referee:       fd.Fixture.Referee,
 			Timezone:      fd.Fixture.Timezone,
 			Timestamp:     fd.Fixture.Timestamp,
-			Venue:         f.Fixture.Venue.ID,
+			Venue:         fd.Fixture.Venue.ID,
 			Season:        season,
-			HomeTeam:      f.Teams.Home.ID,
+			HomeTeam:      fd.Teams.Home.ID,
 			AwayTeam:      fd.Teams.Away.ID,
-			HomeGoals:     f.Goals.Home,
-			AwayGoals:     f.Goals.Away,
+			HomeGoals:     fd.Goals.Home,
+			AwayGoals:     fd.Goals.Away,
 			HomeGoalsHalf: fd.Score.Halftime.Home,
 			AwayGoalsHalf: fd.Score.Halftime.Away,
 		})
 		if err != nil {
-			repo.Logger.Err(err).Msg(fmt.Sprintf("insert fixture: fixture_%d", f.Fixture.ID))
+			repo.Logger.Err(err).Msg(fmt.Sprintf("insert fixture: fixture_%d", fd.Fixture.ID))
 		}
 
 		if fd.Fixture.Status.Elapsed > 0 { //calculate and insert results
@@ -101,7 +142,7 @@ func InsertFixture(repo *database.Repository, fr *[]fetch.FixtureDetail, f *fetc
 				ts := convertTeamStatistics(i, &fd, &repo.Logger)
 				_, err := repo.Fixture.InsertTeamsStats(&database.TeamStatisticsRow{
 					Team:           l.Team.ID,
-					Fixture:        f.Fixture.ID,
+					Fixture:        fd.Fixture.ID,
 					ShotsTotal:     ts.ShotsTotal,
 					ShotsOn:        ts.ShotsOn,
 					ShotsOff:       ts.ShotsOff,
@@ -121,7 +162,7 @@ func InsertFixture(repo *database.Repository, fr *[]fetch.FixtureDetail, f *fetc
 					ExpectedGoals:  ts.ExpectedGoals,
 				})
 				if err != nil {
-					repo.Logger.Err(err).Msg(fmt.Sprintf("insert team statistic: fixture_%d#team_%d", f.Fixture.ID, l.Team.ID))
+					repo.Logger.Err(err).Msg(fmt.Sprintf("insert team statistic: fixture_%d#team_%d", fd.Fixture.ID, l.Team.ID))
 				}
 
 				if len(l.Substitutes) == 5 {
@@ -193,7 +234,7 @@ func InsertFixture(repo *database.Repository, fr *[]fetch.FixtureDetail, f *fetc
 					})
 				}
 				if err != nil {
-					repo.Logger.Err(err).Msg(fmt.Sprintf("insert formation: fixture_%d#team_%d", f.Fixture.ID, l.Team.ID))
+					repo.Logger.Err(err).Msg(fmt.Sprintf("insert formation: fixture_%d#team_%d", fd.Fixture.ID, l.Team.ID))
 				}
 			}
 			for _, playerstats := range fd.Players {
@@ -211,9 +252,9 @@ func InsertFixture(repo *database.Repository, fr *[]fetch.FixtureDetail, f *fetc
 						repo.Logger.Err(err).Msg("")
 					}
 					_, err = repo.Players.InsertStats(&database.PlayerStatsRow{
-						PlayerID:         player.Player.ID,
-						FixtureID:        fd.Fixture.ID,
-						TeamID:           playerstats.Team.ID,
+						Player:           player.Player.ID,
+						Fixture:          fd.Fixture.ID,
+						Team:             playerstats.Team.ID,
 						Season:           season,
 						Minutes:          ps.Games.Minutes,
 						Position:         ps.Games.Position,
@@ -251,7 +292,7 @@ func InsertFixture(repo *database.Repository, fr *[]fetch.FixtureDetail, f *fetc
 						repo.Logger.Err(err).Msg(fmt.Sprintf(
 							"player statistics#player_%d#fixture_%d",
 							player.Player.ID,
-							f.Fixture.ID))
+							fd.Fixture.ID))
 					}
 				}
 
@@ -325,7 +366,7 @@ func addMissingPlayer(env *database.Repository, season, id, team int, rating str
 		_, err := env.Players.Insert(
 			&database.PlayerRow{
 				Id:           p.PlayerDetails.ID,
-				TeamID:       team,
+				Team:         team,
 				Season:       season,
 				FirstName:    p.PlayerDetails.FirstName,
 				LastName:     p.PlayerDetails.LastName,
@@ -389,9 +430,9 @@ func convertTeamStatistics(home int, fd *fetch.FixtureDetail, logger *zerolog.Lo
 	if len(fd.Statistics) > 0 {
 		for _, s := range fd.Statistics[home].Statistics {
 			val := 0
-			f, ok := s.Value.(float64)
+			floating, ok := s.Value.(float64)
 			if ok && s.Value != nil {
-				val = int(f)
+				val = int(floating)
 			}
 			switch t := s.Type; t {
 			case "Shots on Goal":
