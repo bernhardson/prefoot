@@ -185,6 +185,7 @@ func (app *application) getFixture(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// returns object to show key players of selected match
 func (app *application) getPlayerStats(w http.ResponseWriter, r *http.Request) {
 
 	league, err := strconv.Atoi(r.URL.Query().Get("league"))
@@ -197,7 +198,12 @@ func (app *application) getPlayerStats(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 	}
 
-	team, err := strconv.Atoi(r.URL.Query().Get("team"))
+	team, err := strconv.Atoi(r.URL.Query().Get("homeTeam"))
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	awayTeam, err := strconv.Atoi(r.URL.Query().Get("awayTeam"))
 	if err != nil {
 		app.serverError(w, err)
 	}
@@ -207,7 +213,13 @@ func (app *application) getPlayerStats(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 	}
 
-	players, err := app.repo.Players.SelectPlayersByTeamLeagueSeason(season, team)
+	players, err := app.repo.Players.SelectPlayerIdsBySeasonAndTeamId(season, team)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	aplayers, err := app.repo.Players.SelectPlayerIdsBySeasonAndTeamId(season, awayTeam)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -218,94 +230,17 @@ func (app *application) getPlayerStats(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 		return
 	}
-	var pIds, fIds []int
-	for _, p := range players {
-		pIds = append(pIds, p.Id)
-	}
-	for _, f := range *fixtures {
-		fIds = append(fIds, *f)
-	}
 
-	playerStats, err := app.repo.Players.SelectPlayerStatisticsByPlayersFixturesTeam(pIds, fIds, team)
+	players = append(players, aplayers...)
+
+	stats, err := app.repo.Players.SelectPlayerStatisticsByPlayersFixturesTeam(players, fixtures)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	type player struct {
-		Player *database.PlayerRow      `json:"player"`
-		Stats  *database.PlayerStatsRow `json:"stats"`
-	}
-
-	type response struct {
-		Data map[int]*player `json:"data"`
-	}
-
-	data := make(map[int]*player)
-	resp := &response{Data: data}
-	for _, pl := range players {
-		resp.Data[pl.Id] = &player{
-			Player: pl,
-		}
-	}
-
-	games := make(map[int]int)
-	for _, stat := range *playerStats {
-
-		statsAgg := resp.Data[stat.Player].Stats
-		if stat.Minutes == 0 {
-			continue
-		}
-		if statsAgg == nil {
-			statsAgg = &database.PlayerStatsRow{}
-		}
-		// Aggregate field values into statsAgg
-		statsAgg.Minutes += stat.Minutes
-		statsAgg.ShotsTotal += stat.ShotsTotal
-		statsAgg.ShotsOn += stat.ShotsOn
-		statsAgg.GoalsScored += stat.GoalsScored
-		statsAgg.GoalsAssisted += stat.GoalsAssisted
-		statsAgg.PassesTotal += stat.PassesTotal
-		statsAgg.PassesKey += stat.PassesKey
-		statsAgg.Accuracy += stat.Accuracy
-		statsAgg.Tackles += stat.Tackles
-		statsAgg.Block += stat.Block
-		statsAgg.Interceptions += stat.Interceptions
-		statsAgg.DuelsTotal += stat.DuelsTotal
-		statsAgg.DuelsWon += stat.DuelsWon
-		statsAgg.DribblesTotal += stat.DribblesTotal
-		statsAgg.DribblesWon += stat.DribblesWon
-		statsAgg.Yellow += stat.Yellow
-		statsAgg.Red += stat.Red
-		statsAgg.PenaltyWon += stat.PenaltyWon
-		statsAgg.PenaltyCommitted += stat.PenaltyCommitted
-		statsAgg.PenaltyScored += stat.PenaltyScored
-		statsAgg.PenaltyMissed += stat.PenaltyMissed
-		statsAgg.PenaltySaved += stat.PenaltySaved
-		statsAgg.Saves += stat.Saves
-		statsAgg.Rating = statsAgg.Rating + stat.Rating
-
-		resp.Data[stat.Player].Stats = statsAgg
-		games[stat.Player]++
-	}
-
-	for playerID, entry := range resp.Data {
-
-		if games[playerID] == 0 {
-			delete(resp.Data, playerID)
-			continue
-		}
-
-		statsAgg := entry.Stats
-		numGames := games[playerID]
-		if numGames > 0 {
-			statsAgg.Accuracy /= numGames
-			statsAgg.Rating /= float64(numGames)
-		}
-	}
-
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(resp)
+	json.NewEncoder(w).Encode(stats)
 
 }

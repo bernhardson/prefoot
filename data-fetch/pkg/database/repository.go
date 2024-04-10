@@ -24,7 +24,8 @@ type Repository struct {
 		SelectPlayersAndStatisticsByTeamId(int) (*[]*PlayersJoinOnPlayerStatsRow, error)
 		SelectPlayersByTeamId(int) ([]*PlayerRow, error)
 		SelectPlayersByTeamLeagueSeason(int, int) ([]*PlayerRow, error)
-		SelectPlayerStatisticsByPlayersFixturesTeam([]int, []int, int) (*[]*PlayerStatsRow, error)
+		SelectPlayerStatisticsByPlayersFixturesTeam([]int, *[]int) ([]*KeyPlayerStats, error)
+		SelectPlayerIdsBySeasonAndTeamId(int, int) ([]int, error)
 	}
 	Fixture interface {
 		Insert(*FixtureRow) (int64, error)
@@ -36,7 +37,7 @@ type Repository struct {
 		SelectTimestampFromRounds(int, int, int) (int, error)
 		SelectRoundByTimestamp(int, int, int64) (*RoundRow, error)
 		SelectLatestFinishedRound(int, int, int64) (*RoundRow, error)
-		SelectFixtureIdsForLastNRounds(int, int, int, int) (*[]*int, error)
+		SelectFixtureIdsForLastNRounds(int, int, int, int) (*[]int, error)
 		DeleteFixture(int) (int64, error)
 	}
 	League interface {

@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS "coach_careers" CASCADE;
 DROP TABLE IF EXISTS "player_statistics" CASCADE;
+DROP TABLE IF EXISTS "players" CASCADE;
 DROP TABLE IF EXISTS "player_statistics_season" CASCADE;
 DROP TABLE IF EXISTS "formations" CASCADE;
 DROP TABLE IF EXISTS "events" CASCADE;
@@ -8,7 +9,7 @@ DROP TABLE IF EXISTS "teams" CASCADE;
 DROP TABLE IF EXISTS "fixtures" CASCADE;
 DROP TABLE IF EXISTS "leagues" CASCADE;
 DROP TABLE IF EXISTS "coaches" CASCADE;
-DROP TABLE IF EXISTS "players" CASCADE;
+
 DROP TABLE IF EXISTS "team_statistics" CASCADE;
 DROP TABLE IF EXISTS "results" CASCADE;
 DROP TABLE IF EXISTS "seasons" CASCADE;
@@ -134,6 +135,7 @@ CREATE TABLE "player_statistics" (
   "fixture" integer,
   "team" integer,
   "season" integer,
+  "league" integer,
   "minutes" integer,
   "position" varchar,
   "rating" float,

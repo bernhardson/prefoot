@@ -24,7 +24,7 @@ const (
 	insertRound               = `INSERT INTO rounds ("league",  "season", "round", "start", "end") VALUES ($1, $2, $3, $4, $5) ON CONFLICT ("league", "season", "round") DO UPDATE SET "start" = EXCLUDED."start", "end" = EXCLUDED."end";`
 	selectStartEndFromRounds  = `SELECT "start" FROM rounds WHERE league = $1 AND season = $2 AND round = $3`
 	selectRoundsByTimestamp   = `SELECT "round" FROM rounds WHERE "league" = $1 AND season = $2 AND "start" > $3  AND "start" = (SELECT MIN("start") FROM rounds WHERE "league" = $1 AND season = $2 AND "start" > $3) LIMIT 1;`
-	selectLatestFinishedRound = `SELECT "round" FROM rounds WHERE "league" = $1 AND season = $2 AND "end" <= $3 ORDER BY ABS("end" - $3) DESC LIMIT 1;`
+	selectLatestFinishedRound = `SELECT "round" FROM rounds WHERE "league" = $1 AND season = $2 AND "end" <= $3 ORDER BY ABS("end" - $3) ASC LIMIT 1;`
 
 	selectFixturesByRound             = "SELECT * FROM fixtures WHERE round = $1"
 	selectFixturesByLeagueSeasonRound = `SELECT * FROM "fixtures" WHERE "league" = $1 AND "season" = $2 AND "round" = $3`
@@ -228,9 +228,9 @@ func (fm *FixtureModel) DeleteFixture(id int) (int64, error) {
 	return result.RowsAffected(), nil
 }
 
-func (fm *FixtureModel) SelectFixtureIdsForLastNRounds(league, season, round, n int) (*[]*int, error) {
+func (fm *FixtureModel) SelectFixtureIdsForLastNRounds(league, season, round, n int) (*[]int, error) {
 
-	var ret []*int
+	var ret []int
 	rows, err := fm.Pool.Query(context.Background(), selectFixturesByLastNRounds, league, season, round-n, round)
 	if err != nil {
 		return nil, err
@@ -243,7 +243,7 @@ func (fm *FixtureModel) SelectFixtureIdsForLastNRounds(league, season, round, n 
 		if err != nil {
 			return nil, err
 		}
-		ret = append(ret, &id)
+		ret = append(ret, id)
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err
