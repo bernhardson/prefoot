@@ -38,6 +38,7 @@ CREATE TABLE "seasons" (
 CREATE TABLE "results"(
   "team" integer,
   "league" integer,
+  "fixture" integer,
   "round" integer,
   "season" integer,
   "points" integer,
@@ -45,7 +46,6 @@ CREATE TABLE "results"(
   "goals_against" integer,
   "modus" integer,
   "elapsed" integer,
-
   PRIMARY KEY ("team", "round" ,"season")
 );
 
