@@ -9,8 +9,8 @@ import (
 )
 
 type CoachModel struct {
-	Logger zerolog.Logger
-	Repo   CoachRepo
+	Logger *zerolog.Logger
+	Repo   *CoachRepo
 }
 
 func (cm *CoachModel) FetchAndInsertCoaches(teams *[]team.TeamVenue) (*[]int, *[]int, error) {

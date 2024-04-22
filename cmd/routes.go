@@ -1,26 +1,33 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/julienschmidt/httprouter"
+	"github.com/justinas/alice"
+)
 
 func (app *application) routes() http.Handler {
-	mux := http.NewServeMux()
-	//mux.Handle("/static/", http.StripPrefix("/static", fileServer))
+	router := httprouter.New()
+	//router.Handle("/static/", http.StripPrefix("/static", fileServer))
 
-	mux.HandleFunc("/players/", app.getPlayers)
-	mux.HandleFunc("/statistics/", app.getStatistics)
+	router.HandlerFunc(http.MethodGet, "/players/", app.getPlayers)
+	router.HandlerFunc(http.MethodGet, "/statistics/", app.getStatistics)
 	// ui standings table
-	mux.HandleFunc("/standings/", app.getLeagueStanding)
+	router.HandlerFunc(http.MethodGet, "/standings/", app.getLeagueStanding)
 	// fetchCurrentRound
-	mux.HandleFunc("/rounds/", app.getRounds)
+	router.HandlerFunc(http.MethodGet, "/rounds/", app.getRounds)
 	// key player stats
-	mux.HandleFunc("/statistics/players/", app.getPlayerStats)
+	router.HandlerFunc(http.MethodGet, "/statistics/players/", app.getPlayerStats)
 	// last matchups
-	mux.HandleFunc("/fixtures/matchups/", app.getLastNMatchups)
+	router.HandlerFunc(http.MethodGet, "/fixtures/matchups/", app.getLastNMatchups)
 	// last matches per team
-	mux.HandleFunc("/fixtures/last/", app.getLastNFixturesByTeam)
+	router.HandlerFunc(http.MethodGet, "/fixtures/last/", app.getLastNFixturesByTeam)
 	// round list
-	mux.HandleFunc("/fixtures/", app.getFixture)
-	mux.HandleFunc("/init/", app.initDB)
-	mux.HandleFunc("/updateDb/", app.updateDb)
-	return app.recoverPanic(app.logRequest(secureHeaders(mux)))
+	router.HandlerFunc(http.MethodGet, "/fixtures/", app.getFixture)
+	router.HandlerFunc(http.MethodGet, "/init/", app.initDB)
+	router.HandlerFunc(http.MethodGet, "/updateDb/", app.updateDb)
+
+	standard := alice.New(app.sessionManager.LoadAndSave, app.recoverPanic, app.logRequest, secureHeaders)
+	return standard.Then(router)
 }

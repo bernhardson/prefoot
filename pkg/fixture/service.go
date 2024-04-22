@@ -29,9 +29,9 @@ type FixtureModel struct {
 		DeleteFixture(int) (int64, error)
 	}
 
-	RoundRepo  rounds.Repo
-	PlayerRepo players.Repo
-	ResultRepo result.ResultRepo
+	RoundRepo  *rounds.Repo
+	PlayerRepo *players.Repo
+	ResultRepo *result.ResultRepo
 }
 
 // Initialize fixtures, formations, team_statistics, player_statistics, rounds tables.
@@ -308,7 +308,7 @@ func (fm *FixtureModel) InsertFixture(fr *[]FixtureDetail, league, season, round
 
 					if err != nil && strings.HasSuffix(err.Error(), "(SQLSTATE 23503)") {
 						fm.Logger.Info().Msg(fmt.Sprintf("retrying player#%d", player.Player.ID))
-						addMissingPlayer(fm.PlayerRepo, fm.Logger,
+						addMissingPlayer(*fm.PlayerRepo, fm.Logger,
 							season, player.Player.ID, t, ps.Games.Rating)
 					} else if err != nil {
 						fm.Logger.Err(err).Msg(fmt.Sprintf(

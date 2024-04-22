@@ -11,6 +11,7 @@ import (
 	"github.com/bernhardson/prefoot/pkg/fixture"
 	"github.com/bernhardson/prefoot/pkg/result"
 	"github.com/bernhardson/prefoot/pkg/team"
+	"github.com/julienschmidt/httprouter"
 )
 
 // get last round by timestamp
@@ -362,9 +363,20 @@ func (app *application) getLastNFixturesByTeam(w http.ResponseWriter, r *http.Re
 
 func (app *application) initDB(w http.ResponseWriter, r *http.Request) {
 
-	leagues := []int{71, 137}
+	var params struct {
+		Leagues []int `json:"leagues"`
+	}
 
-	for _, l := range leagues {
+	err := json.NewDecoder(r.Body).Decode(&params)
+	if err != nil {
+		app.logger.Err(err).Msg("failed to decode JSON payload")
+		http.Error(w, "failed to decode JSON payload", http.StatusBadRequest)
+		return
+	}
+
+	//leagues := []int{71, 137}
+
+	for _, l := range params.Leagues {
 		lresp, fs, err := app.league.FetchAndInsertLeague(l)
 		app.logger.Err(err).Msg(fmt.Sprintf("insert leagues: failed=%v", *fs))
 
@@ -390,12 +402,14 @@ func (app *application) initDB(w http.ResponseWriter, r *http.Request) {
 
 func (app *application) updateDb(w http.ResponseWriter, r *http.Request) {
 
-	league, err := strconv.Atoi(r.URL.Query().Get("league"))
+	params := httprouter.ParamsFromContext(r.Context())
+
+	league, err := strconv.Atoi(params.ByName("league"))
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
-	season, err := strconv.Atoi(r.URL.Query().Get("season"))
+	season, err := strconv.Atoi(params.ByName("season"))
 	if err != nil {
 		app.serverError(w, err)
 		return

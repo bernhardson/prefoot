@@ -238,6 +238,15 @@ CREATE TABLE "coach_careers" (
   PRIMARY KEY ("coach", "team", "start")
 );
 
+CREATE TABLE sessions (
+    token CHAR(43) PRIMARY KEY,
+    data BYTEA NOT NULL,
+    expiry TIMESTAMP(6) NOT NULL
+);
+
+CREATE INDEX sessions_expiry_idx ON sessions (expiry);
+
+
 ALTER TABLE "fixtures" ADD FOREIGN KEY ("home_team") REFERENCES "teams" ("id") DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE "fixtures" ADD FOREIGN KEY ("away_team") REFERENCES "teams" ("id") DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE "events" ADD FOREIGN KEY ("fixture") REFERENCES "fixtures" ("id") DEFERRABLE INITIALLY DEFERRED;
