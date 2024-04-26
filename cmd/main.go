@@ -9,6 +9,7 @@ import (
 
 	"github.com/alexedwards/scs/pgxstore"
 	"github.com/alexedwards/scs/v2"
+	"github.com/bernhardson/prefoot/internal/models"
 	"github.com/bernhardson/prefoot/pkg/coach"
 	"github.com/bernhardson/prefoot/pkg/fixture"
 	"github.com/bernhardson/prefoot/pkg/leagues"
@@ -29,6 +30,7 @@ type application struct {
 	team           *team.TeamModel
 	coach          *coach.CoachModel
 	sessionManager *scs.SessionManager
+	users          *models.UserModel
 }
 
 func main() {
@@ -100,6 +102,9 @@ func main() {
 			Repo: &coach.CoachRepo{
 				Pool: pool,
 			},
+		},
+		users: &models.UserModel{
+			Pool: pool,
 		},
 	}
 

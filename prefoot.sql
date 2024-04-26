@@ -246,6 +246,15 @@ CREATE TABLE sessions (
 
 CREATE INDEX sessions_expiry_idx ON sessions (expiry);
 
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    hashed_password CHAR(60) NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE users ADD CONSTRAINT users_uc_email UNIQUE (email);
 
 ALTER TABLE "fixtures" ADD FOREIGN KEY ("home_team") REFERENCES "teams" ("id") DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE "fixtures" ADD FOREIGN KEY ("away_team") REFERENCES "teams" ("id") DEFERRABLE INITIALLY DEFERRED;

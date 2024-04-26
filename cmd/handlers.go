@@ -2,12 +2,16 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
 
+	"github.com/bernhardson/prefoot/internal/models"
+	"github.com/bernhardson/prefoot/internal/validator"
 	"github.com/bernhardson/prefoot/pkg/fixture"
 	"github.com/bernhardson/prefoot/pkg/result"
 	"github.com/bernhardson/prefoot/pkg/team"
@@ -416,4 +420,138 @@ func (app *application) updateDb(w http.ResponseWriter, r *http.Request) {
 	}
 
 	app.fixture.UpdateFixture(league, season)
+}
+
+type userSignupForm struct {
+	Name     string `form:"name"`
+	Email    string `form:"email"`
+	Password string `form:"password"`
+}
+
+func (app *application) userSignup(w http.ResponseWriter, r *http.Request) {
+	// Try to create a new user record in the database. If the email already // exists then add an error message to the form and re-display it.
+
+	params := httprouter.ParamsFromContext(r.Context())
+
+	name := params.ByName("name")
+
+	email := params.ByName("email")
+
+	password := params.ByName("password")
+
+	err := app.users.Insert(name, email, password)
+	if err != nil {
+		if errors.Is(err, models.ErrDuplicateEmail) {
+			//return error
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
+}
+
+type user struct {
+	Name     string `json:"name"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+}
+
+func (app *application) userSignupPost(w http.ResponseWriter, r *http.Request) { // Declare an zero-valued instance of our userSignupForm struct.
+
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	var user user
+	err = json.Unmarshal(body, &user)
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	valid := validator.NotBlank(user.Name)
+	valid = valid && validator.NotBlank(user.Email)
+	valid = valid && validator.Matches(user.Email, validator.EmailRX)
+	valid = valid && validator.NotBlank(user.Password)
+	valid = valid && validator.MinChars(user.Password, 8)
+
+	// If there are any errors, redisplay the signup form along with a 422 // status code.
+
+	if !valid {
+		app.serverError(w, errors.New("user email and/or password are invalid"))
+		return
+	}
+
+	// Try to create a new user record in the database. If the email already
+	// exists then add an error message to the form and re-display it.
+	err = app.users.Insert(user.Name, user.Email, user.Password)
+	if err != nil {
+		if errors.Is(err, models.ErrDuplicateEmail) {
+			//todo return proper error message
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
+
+	// Otherwise add a confirmation flash message to the session confirming that
+	// their signup worked.
+	app.sessionManager.Put(r.Context(), "flash", "Your signup was successful. Please log in.")
+
+	// And redirect the user to the login page.
+	http.Redirect(w, r, "/user/login", http.StatusSeeOther)
+}
+
+func (app *application) userLoginPost(w http.ResponseWriter, r *http.Request) {
+
+	var user user
+
+	valid := validator.NotBlank(user.Email)
+	valid = valid && validator.Matches(user.Email, validator.EmailRX)
+	valid = valid && validator.NotBlank(user.Password)
+
+	if !valid {
+		app.serverError(w, errors.New("user email or password wrong"))
+		return
+	}
+
+	id, err := app.users.Authenticate(user.Email, user.Password)
+	if err != nil {
+		if errors.Is(err, models.ErrInvalidCredentials) {
+			app.serverError(w, models.ErrInvalidCredentials)
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
+
+	err = app.sessionManager.RenewToken(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	app.sessionManager.Put(r.Context(), "authenticatedUserID", id)
+
+	// path := app.sessionManager.PopString(r.Context(), "redirectPathAfterLogin")
+	// if path != "" {
+	// 	http.Redirect(w, r, path, http.StatusSeeOther)
+	// 	return
+	// }
+
+	// http.Redirect(w, r, "/snippet/create", http.StatusSeeOther)
+}
+
+func (app *application) userLogoutPost(w http.ResponseWriter, r *http.Request) { // Use the RenewToken() method on the current session to change the session // ID again.
+
+	err := app.sessionManager.RenewToken(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	app.sessionManager.Remove(r.Context(), "authenticatedUserID")
+	app.sessionManager.Put(r.Context(), "flash", "You've been logged out successfully!")
+
+	// http.Redirect(w, r, "/", http.StatusSeeOther)
 }

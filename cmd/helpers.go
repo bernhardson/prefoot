@@ -30,6 +30,10 @@ func (app *application) notFound(w http.ResponseWriter) {
 	app.clientError(w, http.StatusNotFound)
 }
 
+func (app *application) isAuthenticated(r *http.Request) bool {
+	return app.sessionManager.Exists(r.Context(), "authenticatedUserID")
+}
+
 type RapidResponse struct {
 	Get        string        `json:"get"`
 	Parameters interface{}   `json:"parameters"`

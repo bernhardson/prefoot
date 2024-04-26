@@ -9,7 +9,6 @@ import (
 
 func (app *application) routes() http.Handler {
 	router := httprouter.New()
-	//router.Handle("/static/", http.StripPrefix("/static", fileServer))
 
 	router.HandlerFunc(http.MethodGet, "/players/", app.getPlayers)
 	router.HandlerFunc(http.MethodGet, "/statistics/", app.getStatistics)
@@ -28,6 +27,11 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/init/", app.initDB)
 	router.HandlerFunc(http.MethodGet, "/updateDb/", app.updateDb)
 
+	router.HandlerFunc(http.MethodPost, "/user/signup", app.userSignupPost)
+	router.HandlerFunc(http.MethodPost, "/user/login", app.userLoginPost)
+	router.HandlerFunc(http.MethodPost, "/user/logout", app.userLogoutPost)
+
 	standard := alice.New(app.sessionManager.LoadAndSave, app.recoverPanic, app.logRequest, secureHeaders)
+	//protected := standard.Append(app.requireAuthentication)
 	return standard.Then(router)
 }
